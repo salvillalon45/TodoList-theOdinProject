@@ -33,7 +33,7 @@ html, body, #content {
 /*  margin-bottom: 40px;*/
 /*}*/
 
-button, i, li {
+button, i, li, .user-project, .task {
   cursor: pointer;
 }
 
@@ -100,11 +100,12 @@ main {
 }
 
 .projects-container, .tasks-container, .task-details-container {
-  background-color: #A3C4C3;
+  background-color: whitesmoke;
 }
 
 .projects-container h2, .tasks-container h2, .task-details-container h2 {
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
+  margin: 15px;
 }
 
 .projects-container {
@@ -121,7 +122,7 @@ main {
 
 #input-task, #input-project  {
   font-size: 1rem;
-  background-color: #FBE29C;
+  background-color: #A3C4C3;
   border: none;
   outline: none;
   box-sizing: border-box;
@@ -134,6 +135,30 @@ main {
 .task-details-container {
   flex: 1 0 0;
   /*margin: 0.2em 2em;*/
+}
+
+.user-project, .task {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 1rem;
+}
+
+.user-project-container .selected {
+  background-color: #FBE29C;
+  padding: 1rem;
+}
+
+.task:hover, .user-project:hover {
+  background-color: #5DBDEA;
+}
+
+.task-details-container h3, .task-details-container h4 {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.task-details-container h3 {
+  font-size: x-large;
 }
 
 /*!* Index Page  *!*/

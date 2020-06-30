@@ -1,4 +1,4 @@
-# theOdinProject-RestaurantPage
+# theOdinProject-TodoList
 [TheOdinProject: Javascript] - Project: Todo List
 
 # Summary

@@ -9,17 +9,29 @@ html, body, #content {
   height: 100%;
 }
 
-body, #content {
-  display: flex;
-  flex-direction: column;
-  font-family: 'Roboto Slab', serif;
-  background-color: #f0f0f0;
+#content {
+  /*position: fixed;*/
+  /*display: flex;*/
+  /*flex-direction: row;*/
+  /*top: 0;*/
+  /*left: 0;*/
+  /*width: 100%;*/
+  /*height: 100%;*/
+  /*overflow: hidden;*/
+  font-family: 'Lato', sans-serif;
 }
 
-main {
-  flex: 1 0 auto;
-  margin-bottom: 40px;
-}
+/*body, #content {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  font-family: 'Roboto Slab', serif;*/
+/*  background-color: #f0f0f0;*/
+/*}*/
+
+/*main {*/
+/*  flex: 1 0 auto;*/
+/*  margin-bottom: 40px;*/
+/*}*/
 
 button, i, li {
   cursor: pointer;
@@ -39,7 +51,7 @@ header {
   /*overflow: hidden;*/
   height: 70px;
   line-height: 70px;
-  background-color: #f3ecdc;
+  background-color: #0d122bd1;
 }
 
 .nav-container {
@@ -51,7 +63,9 @@ header {
   float: left;
   font-size: xx-large;
   font-weight: 500;
-  font-family: 'Work Sans', sans-serif;
+  /*font-family: 'Work Sans', sans-serif;*/
+  font-family: 'Merriweather', serif;
+  color: white;
 }
 
 .menu {
@@ -61,154 +75,204 @@ header {
 
 .menu li {
   float: left;
-  width: 120px;
+  width: 141px;
   height: 70px;
   line-height: 70px;
   text-align: center;
-  font-size: larger;
+  font-size: large;
 }
 
-.menu li:hover {
-  color: #0014ff99;
+.menu li a:hover {
+  color: #98a7f2;
 }
 
-/* Index Page  */
-/* --------------------------------------- */
-.jumbotron {
-  background-image: url("../assets/images/jumbotron.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  height: 25rem;
-  text-align: center;
-}
-
-.overlay-container {
-  display: flex;
-  justify-content: center;
-}
-
-.jumbotron-text {
-  position: relative;
-  top: 9rem;
-  padding: 30px;
+.menu li a {
+  text-decoration: none;
   color: white;
-  background-color: #00000094;
-  width: 590px;
 }
 
-.jumbotron-text h1, h2 {
-  font-weight: 200;
-}
-
-/* Index Page and Menu Page */
-/* --------------------------------------- */
-.offer-container, .menu-container {
-  padding: 10px;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(200px, 1fr));
-  grid-gap: 1rem;
-  /* Made the width smaller and added margin. By changing the width it makes the columns try to fit into this space  */
-  margin: 0 auto;
-  max-width: 900px;
-}
-
-.offer-card, .menu-card {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 1rem;
+main {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  height: 100%;
+  overflow: hidden;
 }
 
-.offer-card img, .menu-card img {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 5px;
+.projects-container, .tasks-container, .task-details-container {
+  background-color: #A3C4C3;
 }
 
-.offer-card h3, .menu-card h3 {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  font-size: 20px;
-  font-family: 'Work Sans', sans-serif;
-  font-weight: 600;
+.projects-container h2, .tasks-container h2, .task-details-container h2 {
+  margin-bottom: 20px;
 }
 
-.offer-card h4, .menu-card h4 {
-  font-weight: 100;
+.projects-container {
+  flex: 1 0 0;
+  overflow-y: scroll;
+  height: 100%;
 }
 
-.offer-container-text, .menu-container-text {
-  text-align: center;
-  margin-top: 25px;
-  margin-bottom: 25px;
-  font-family: 'Work Sans', sans-serif;
+.tasks-container {
+  flex: 1 0 0;
+  height: 100%;
+  overflow-y: scroll;
 }
 
-.offer-container-text h2 {
-  font-weight: 500;
-}
-
-.menu-container-text h1 {
-  font-weight: 500;
-  font-size: 50px;
-}
-
-/* Footer */
-/* --------------------------------------- */
-.footer {
-  flex-shrink: 0;
-  height: 70px;
-  background-color: #f3ecdc;
+#input-task, #input-project  {
+  font-size: 1rem;
+  background-color: #FBE29C;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  padding: 1rem;
   width: 100%;
-  margin: 0 auto;
-  font-family: 'Work Sans', sans-serif;
-  font-weight: 500;
+  z-index: 100;
+  font-family: 'Lato', sans-serif;
 }
 
-.social-icons {
-  display: inline-flex;
-  list-style: none;
-  margin-top: 20px;
-  line-height: 40px;
+.task-details-container {
+  flex: 1 0 0;
+  /*margin: 0.2em 2em;*/
 }
 
-.social-icons li {
-  margin-left: 20px;
-}
+/*!* Index Page  *!*/
+/*!* --------------------------------------- *!*/
+/*.jumbotron {*/
+/*  background-image: url("../assets/images/jumbotron.jpg");*/
+/*  background-repeat: no-repeat;*/
+/*  background-position: center;*/
+/*  background-size: cover;*/
+/*  height: 25rem;*/
+/*  text-align: center;*/
+/*}*/
 
-.fa {
-  font-size: 25px;
-  color: black
-}
+/*.overlay-container {*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*}*/
 
-.fa-linkedin:hover {
-  color: #007bb6;
-}
+/*.jumbotron-text {*/
+/*  position: relative;*/
+/*  top: 9rem;*/
+/*  padding: 30px;*/
+/*  color: white;*/
+/*  background-color: #00000094;*/
+/*  width: 590px;*/
+/*}*/
 
-.fa-user:hover {
-  color: #358923;
-}
+/*.jumbotron-text h1, h2 {*/
+/*  font-weight: 200;*/
+/*}*/
 
-/* Our Story Page and Location Page */
-/* --------------------------------------- */
-.our-story-container h1, .location-container h1 {
-  font-family: 'Work Sans', sans-serif;
-  font-weight: 500;
-  font-size: 50px;
-}
+/*!* Index Page and Menu Page *!*/
+/*!* --------------------------------------- *!*/
+/*.offer-container, .menu-container {*/
+/*  padding: 10px;*/
+/*  display: grid;*/
+/*  grid-template-columns: repeat(3, minmax(200px, 1fr));*/
+/*  grid-gap: 1rem;*/
+/*  !* Made the width smaller and added margin. By changing the width it makes the columns try to fit into this space  *!*/
+/*  margin: 0 auto;*/
+/*  max-width: 900px;*/
+/*}*/
 
-.our-story-container, .location-container {
-  padding: 30px;
-}
+/*.offer-card, .menu-card {*/
+/*  background: white;*/
+/*  padding: 1.5rem;*/
+/*  border-radius: 1rem;*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  align-items: center;*/
+/*}*/
 
-.location-container {
-  text-align: center;
-}
+/*.offer-card img, .menu-card img {*/
+/*  width: 200px;*/
+/*  height: 200px;*/
+/*  object-fit: cover;*/
+/*  border-radius: 5px;*/
+/*}*/
 
-.location-container h1 {
-  margin-bottom: 10px;
-}
+/*.offer-card h3, .menu-card h3 {*/
+/*  margin-top: 10px;*/
+/*  margin-bottom: 10px;*/
+/*  font-size: 20px;*/
+/*  font-family: 'Work Sans', sans-serif;*/
+/*  font-weight: 600;*/
+/*}*/
+
+/*.offer-card h4, .menu-card h4 {*/
+/*  font-weight: 100;*/
+/*}*/
+
+/*.offer-container-text, .menu-container-text {*/
+/*  text-align: center;*/
+/*  margin-top: 25px;*/
+/*  margin-bottom: 25px;*/
+/*  font-family: 'Work Sans', sans-serif;*/
+/*}*/
+
+/*.offer-container-text h2 {*/
+/*  font-weight: 500;*/
+/*}*/
+
+/*.menu-container-text h1 {*/
+/*  font-weight: 500;*/
+/*  font-size: 50px;*/
+/*}*/
+
+/*!* Footer *!*/
+/*!* --------------------------------------- *!*/
+/*.footer {*/
+/*  flex-shrink: 0;*/
+/*  height: 70px;*/
+/*  background-color: #f3ecdc;*/
+/*  width: 100%;*/
+/*  margin: 0 auto;*/
+/*  font-family: 'Work Sans', sans-serif;*/
+/*  font-weight: 500;*/
+/*}*/
+
+/*.social-icons {*/
+/*  display: inline-flex;*/
+/*  list-style: none;*/
+/*  margin-top: 20px;*/
+/*  line-height: 40px;*/
+/*}*/
+
+/*.social-icons li {*/
+/*  margin-left: 20px;*/
+/*}*/
+
+/*.fa {*/
+/*  font-size: 25px;*/
+/*  color: black*/
+/*}*/
+
+/*.fa-linkedin:hover {*/
+/*  color: #007bb6;*/
+/*}*/
+
+/*.fa-user:hover {*/
+/*  color: #358923;*/
+/*}*/
+
+/*!* Our Story Page and Location Page *!*/
+/*!* --------------------------------------- *!*/
+/*.our-story-container h1, .location-container h1 {*/
+/*  font-family: 'Work Sans', sans-serif;*/
+/*  font-weight: 500;*/
+/*  font-size: 50px;*/
+/*}*/
+
+/*.our-story-container, .location-container {*/
+/*  padding: 30px;*/
+/*}*/
+
+/*.location-container {*/
+/*  text-align: center;*/
+/*}*/
+
+/*.location-container h1 {*/
+/*  margin-bottom: 10px;*/
+/*}*/

@@ -1,0 +1,214 @@
+/* Overall */
+/* --------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #content {
+  height: 100%;
+}
+
+body, #content {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto Slab', serif;
+  background-color: #f0f0f0;
+}
+
+main {
+  flex: 1 0 auto;
+  margin-bottom: 40px;
+}
+
+button, i, li {
+  cursor: pointer;
+}
+
+/* To display hide pages that are not clicked on  */
+/* --------------------------------------- */
+.hidden {
+  display: none;
+}
+
+/* Header Section */
+/* --------------------------------------- */
+header {
+  width: 100%;
+  /* If we are going to place a footer using flexbox, then we do not use overflow hidden in the header */
+  /*overflow: hidden;*/
+  height: 70px;
+  line-height: 70px;
+  background-color: #f3ecdc;
+}
+
+.nav-container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.logo {
+  float: left;
+  font-size: xx-large;
+  font-weight: 500;
+  font-family: 'Work Sans', sans-serif;
+}
+
+.menu {
+  float: right;
+  list-style: none;
+}
+
+.menu li {
+  float: left;
+  width: 120px;
+  height: 70px;
+  line-height: 70px;
+  text-align: center;
+  font-size: larger;
+}
+
+.menu li:hover {
+  color: #0014ff99;
+}
+
+/* Index Page  */
+/* --------------------------------------- */
+.jumbotron {
+  background-image: url("../assets/images/jumbotron.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 25rem;
+  text-align: center;
+}
+
+.overlay-container {
+  display: flex;
+  justify-content: center;
+}
+
+.jumbotron-text {
+  position: relative;
+  top: 9rem;
+  padding: 30px;
+  color: white;
+  background-color: #00000094;
+  width: 590px;
+}
+
+.jumbotron-text h1, h2 {
+  font-weight: 200;
+}
+
+/* Index Page and Menu Page */
+/* --------------------------------------- */
+.offer-container, .menu-container {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(200px, 1fr));
+  grid-gap: 1rem;
+  /* Made the width smaller and added margin. By changing the width it makes the columns try to fit into this space  */
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+.offer-card, .menu-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.offer-card img, .menu-card img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.offer-card h3, .menu-card h3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+}
+
+.offer-card h4, .menu-card h4 {
+  font-weight: 100;
+}
+
+.offer-container-text, .menu-container-text {
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  font-family: 'Work Sans', sans-serif;
+}
+
+.offer-container-text h2 {
+  font-weight: 500;
+}
+
+.menu-container-text h1 {
+  font-weight: 500;
+  font-size: 50px;
+}
+
+/* Footer */
+/* --------------------------------------- */
+.footer {
+  flex-shrink: 0;
+  height: 70px;
+  background-color: #f3ecdc;
+  width: 100%;
+  margin: 0 auto;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 500;
+}
+
+.social-icons {
+  display: inline-flex;
+  list-style: none;
+  margin-top: 20px;
+  line-height: 40px;
+}
+
+.social-icons li {
+  margin-left: 20px;
+}
+
+.fa {
+  font-size: 25px;
+  color: black
+}
+
+.fa-linkedin:hover {
+  color: #007bb6;
+}
+
+.fa-user:hover {
+  color: #358923;
+}
+
+/* Our Story Page and Location Page */
+/* --------------------------------------- */
+.our-story-container h1, .location-container h1 {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 500;
+  font-size: 50px;
+}
+
+.our-story-container, .location-container {
+  padding: 30px;
+}
+
+.location-container {
+  text-align: center;
+}
+
+.location-container h1 {
+  margin-bottom: 10px;
+}

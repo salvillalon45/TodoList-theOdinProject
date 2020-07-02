@@ -11,12 +11,14 @@ const projectControllerFactory = function()  {
 
         console.log(project.name);
         console.log(project.tasks);
-        storeInStorage(projectTitle);
+        console.log("what is project:: " + project);
+
+        storeInStorage(project.name, project);
     }
 
-    function storeInStorage(projectTitle) {
+    function storeInStorage(projectTitle, projectObj) {
         console.log("Inside storeInStorage()");
-        window.localStorage.setItem(projectTitle, projectTitle);
+        window.localStorage.setItem(projectTitle, projectObj);
     }
 
     return {

@@ -33,7 +33,7 @@ html, body, #content {
 /*  margin-bottom: 40px;*/
 /*}*/
 
-button, i, li, .user-project, .task {
+button, i, li, .user-project, .user-task {
   cursor: pointer;
 }
 
@@ -137,7 +137,7 @@ main {
   /*margin: 0.2em 2em;*/
 }
 
-.user-project, .task {
+.user-project, .user-task {
   margin-bottom: 10px;
   margin-top: 10px;
   padding: 1rem;
@@ -148,7 +148,7 @@ main {
   padding: 1rem;
 }
 
-.task:hover, .user-project:hover {
+.user-task:hover, .user-project:hover {
   background-color: #5DBDEA;
 }
 

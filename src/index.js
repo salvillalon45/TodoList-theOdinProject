@@ -70,10 +70,11 @@ function createEventListeners() {
 
         userProject.addEventListener("click", function () {
             let projectName = this.innerHTML;
-            let classArray = this.className.split(" ");
-            console.log("What is classArray:: " + classArray);
+            // let classArray = this.className.split(" ");
+            console.log(userProject.classList.contains("active"));
 
-            if (classArray.indexOf("active") < 0) {
+            // if (classArray.indexOf("active") < 0) {
+            if (userProject.classList.contains("active") === false) {
                 // active is not in class
                 console.log("active is not in class");
 
@@ -86,7 +87,7 @@ function createEventListeners() {
             // else {
             //     console.log("active is in class");
             //     taskView.removeTasksForProjectView();
-            //     projectView.removeActiveInUserProject();
+            //     projectView.removeActiveInUserProject(i);
             // }
 
         });

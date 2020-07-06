@@ -40,7 +40,10 @@ button, i, li, .user-project, .user-task {
 /* To display hide pages that are not clicked on  */
 /* --------------------------------------- */
 .hidden {
-  display: none;
+  /*display: none;*/
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
 }
 
 /* Header Section */
@@ -93,7 +96,8 @@ header {
 
 main {
   display: flex;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
+  justify-content: space-evenly;
   flex-direction: row;
   height: 100%;
   overflow: hidden;
@@ -109,14 +113,16 @@ main {
 }
 
 .projects-container {
-  flex: 1 0 0;
+  /*flex: 1 0 0;*/
   overflow-y: scroll;
   height: 100%;
+  width: 100%;
 }
 
 .tasks-container {
-  flex: 1 0 0;
+  /*flex: 1 0 0;*/
   height: 100%;
+  width: 100%;
   overflow-y: scroll;
 }
 
@@ -161,143 +167,77 @@ main {
   font-size: x-large;
 }
 
-/*!* Index Page  *!*/
-/*!* --------------------------------------- *!*/
-/*.jumbotron {*/
-/*  background-image: url("../assets/images/jumbotron.jpg");*/
-/*  background-repeat: no-repeat;*/
-/*  background-position: center;*/
-/*  background-size: cover;*/
-/*  height: 25rem;*/
-/*  text-align: center;*/
-/*}*/
 
-/*.overlay-container {*/
-/*  display: flex;*/
-/*  justify-content: center;*/
-/*}*/
+.intro-task-container {
+  display: flex;
+}
 
-/*.jumbotron-text {*/
-/*  position: relative;*/
-/*  top: 9rem;*/
-/*  padding: 30px;*/
-/*  color: white;*/
-/*  background-color: #00000094;*/
-/*  width: 590px;*/
-/*}*/
+.add-task-btn {
+  margin: 15px;
+  /* width: 178px; */
+  border-radius: 10px;
+  background-color: #99949c;
+  border: none;
+  padding: 7px 32px;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+}
 
-/*.jumbotron-text h1, h2 {*/
-/*  font-weight: 200;*/
-/*}*/
+.add-task-btn:hover {
+  background-color: red;
+}
 
-/*!* Index Page and Menu Page *!*/
-/*!* --------------------------------------- *!*/
-/*.offer-container, .menu-container {*/
-/*  padding: 10px;*/
-/*  display: grid;*/
-/*  grid-template-columns: repeat(3, minmax(200px, 1fr));*/
-/*  grid-gap: 1rem;*/
-/*  !* Made the width smaller and added margin. By changing the width it makes the columns try to fit into this space  *!*/
-/*  margin: 0 auto;*/
-/*  max-width: 900px;*/
-/*}*/
+/* Form Page Content */
+/* --------------------------------------- */
+.task-form-page {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
 
-/*.offer-card, .menu-card {*/
-/*  background: white;*/
-/*  padding: 1.5rem;*/
-/*  border-radius: 1rem;*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*  align-items: center;*/
-/*}*/
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 352px;
+  padding: 25px;
+  background-color: #131a3d;
+  top: 50%;
+  left: 50%;
+  box-sizing: border-box;
+  color: white;
+  border-radius: 5px;
+  z-index: 2;
+  margin: 167px auto;
+}
 
-/*.offer-card img, .menu-card img {*/
-/*  width: 200px;*/
-/*  height: 200px;*/
-/*  object-fit: cover;*/
-/*  border-radius: 5px;*/
-/*}*/
+.task-form-page label {
+  padding: 5px;
+}
 
-/*.offer-card h3, .menu-card h3 {*/
-/*  margin-top: 10px;*/
-/*  margin-bottom: 10px;*/
-/*  font-size: 20px;*/
-/*  font-family: 'Work Sans', sans-serif;*/
-/*  font-weight: 600;*/
-/*}*/
+.submit-btn, .cancel-btn {
+  border-radius: 10px;
+  background-color: #f8ecff;
+  border: none;
+  padding: 11px 13px;
+  text-align: center;
+  display: inline-block;
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+}
 
-/*.offer-card h4, .menu-card h4 {*/
-/*  font-weight: 100;*/
-/*}*/
+.submit-btn:hover, .cancel-btn:hover {
+  background-color: #948b99;
+}
 
-/*.offer-container-text, .menu-container-text {*/
-/*  text-align: center;*/
-/*  margin-top: 25px;*/
-/*  margin-bottom: 25px;*/
-/*  font-family: 'Work Sans', sans-serif;*/
-/*}*/
+.button-container {
+  margin: 0 auto;
+}
 
-/*.offer-container-text h2 {*/
-/*  font-weight: 500;*/
-/*}*/
-
-/*.menu-container-text h1 {*/
-/*  font-weight: 500;*/
-/*  font-size: 50px;*/
-/*}*/
-
-/*!* Footer *!*/
-/*!* --------------------------------------- *!*/
-/*.footer {*/
-/*  flex-shrink: 0;*/
-/*  height: 70px;*/
-/*  background-color: #f3ecdc;*/
-/*  width: 100%;*/
-/*  margin: 0 auto;*/
-/*  font-family: 'Work Sans', sans-serif;*/
-/*  font-weight: 500;*/
-/*}*/
-
-/*.social-icons {*/
-/*  display: inline-flex;*/
-/*  list-style: none;*/
-/*  margin-top: 20px;*/
-/*  line-height: 40px;*/
-/*}*/
-
-/*.social-icons li {*/
-/*  margin-left: 20px;*/
-/*}*/
-
-/*.fa {*/
-/*  font-size: 25px;*/
-/*  color: black*/
-/*}*/
-
-/*.fa-linkedin:hover {*/
-/*  color: #007bb6;*/
-/*}*/
-
-/*.fa-user:hover {*/
-/*  color: #358923;*/
-/*}*/
-
-/*!* Our Story Page and Location Page *!*/
-/*!* --------------------------------------- *!*/
-/*.our-story-container h1, .location-container h1 {*/
-/*  font-family: 'Work Sans', sans-serif;*/
-/*  font-weight: 500;*/
-/*  font-size: 50px;*/
-/*}*/
-
-/*.our-story-container, .location-container {*/
-/*  padding: 30px;*/
-/*}*/
-
-/*.location-container {*/
-/*  text-align: center;*/
-/*}*/
-
-/*.location-container h1 {*/
-/*  margin-bottom: 10px;*/
-/*}*/
+.button-container .submit-btn {
+  margin-top: 19px;
+  margin-right: 15px;
+}

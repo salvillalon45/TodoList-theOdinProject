@@ -49,17 +49,26 @@ const projectViewFactory = function()  {
     function insertActiveInUserProject(index) {
         // const userProject = document.querySelector(".user-project");
         let userProjectArray = Array.from(document.querySelectorAll(".user-project"));
-        // userProjectArray[index].classList.add("active");
-        userProjectArray[index].classList.toggle("active");
+        userProjectArray[index].classList.add("active");
+        // userProjectArray[index].classList.toggle("active");
         // userProject.classList.add("active");
     }
 
     function removeActiveInUserProject(index) {
         // const userProject = document.querySelector(".user-project");
         //
-        // userProject.classList.remove("active");
+
         let userProjectArray = Array.from(document.querySelectorAll(".user-project"));
-        userProjectArray[index].classList.toggle("active");
+        // userProjectArray[index].classList.toggle("active");
+        userProjectArray[index].classList.remove("active");
+    }
+
+    function removeActiveForAllUserProject() {
+        let userProjectArray = Array.from(document.querySelectorAll(".user-project"));
+
+        for (let i = 0; i < userProjectArray.length; i++) {
+            userProjectArray[i].classList.remove("active");
+        }
     }
 
     function renderAllUserProjects() {
@@ -94,7 +103,7 @@ const projectViewFactory = function()  {
     }
 
     return {
-        render, createUserProject, removeActiveInUserProject, insertActiveInUserProject
+        render, createUserProject, removeActiveInUserProject, insertActiveInUserProject, removeActiveForAllUserProject
     }
 }
 

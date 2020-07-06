@@ -8,11 +8,6 @@ const projectControllerFactory = function()  {
         console.log("Inside createProject()");
 
         project.name = projectTitle;
-
-        console.log(project.name);
-        console.log(project.tasks);
-        console.log("what is project:: " + project);
-
         storeInStorage(project.name, project);
     }
 

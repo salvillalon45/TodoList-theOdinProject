@@ -1,12 +1,14 @@
 import { projectControllerFactory } from "./controllers/projectController";
 import { projectViewFactory } from "./pages/projectView";
 import { taskViewFactory} from "./pages/taskView";
+import { taskControllerFactory } from "./controllers/taskController";
 
 console.log("Inside index.js");
 
 let projectController = projectControllerFactory();
 let projectView = projectViewFactory();
 let taskView = taskViewFactory();
+let taskController = taskControllerFactory();
 
 let project1Task1 = {
     taskName: "Create A New Project",
@@ -23,19 +25,19 @@ let project1Task2 = {
 }
 
 let project1 = {
-    name: "project1",
+    name: "Project 1",
     tasks: [project1Task1, project1Task2]
 }
 
 let project2Task1 = {
-    taskName: "Create A New Project in project 2",
+    taskName: "PROJECT TWO TASK 1",
     Description: "To create a new Project, type its name in the field in the left pane, then press Enter button.",
     Due:"2020-06-29",
     Priority: "high"
 }
 
 let project2Task2 = {
-    taskName: "Take out trash in project 2",
+    taskName: "PROJECT TWO TASK 2",
     Description: "Take out trash every sunday",
     Due:"2020-06-29",
     Priority: "high"
@@ -59,7 +61,6 @@ taskView.render();
 //     document.getElementById("input-project").value = "";
 // });
 
-
 function createEventListeners() {
     console.log("inside createEventListeners");
 
@@ -70,29 +71,39 @@ function createEventListeners() {
 
         userProject.addEventListener("click", function () {
             let projectName = this.innerHTML;
-            // let classArray = this.className.split(" ");
-            console.log(userProject.classList.contains("active"));
 
-            // if (classArray.indexOf("active") < 0) {
-            if (userProject.classList.contains("active") === false) {
-                // active is not in class
-                console.log("active is not in class");
-
-                // that.innerHTML = currentMarker;
-                // that.classList.add("taken");
-                // updateMarker(that.id);
-                taskView.renderTasksForProjectView(projectName);
-                projectView.insertActiveInUserProject(i);
-            }
-            // else {
-            //     console.log("active is in class");
-            //     taskView.removeTasksForProjectView();
-            //     projectView.removeActiveInUserProject(i);
-            // }
-
+            projectView.removeActiveForAllUserProject();
+            projectView.insertActiveInUserProject(i);
+            taskView.renderTasksForProjectView(projectName);
         });
     }
 }
 
+document.querySelector(".add-task-btn").addEventListener("click", function() {
+    taskView.openForm();
+});
+
+function executeSubmitButton() {
+    document.querySelector(".submit-btn").addEventListener("click", function() {
+
+        let newTitle = document.forms["TaskForm"]["title"];
+        console.log(newTitle.value);
+        let newDescription = document.forms["TaskForm"]["description"];
+        console.log(newDescription.value);
+        let newDueDate = document.forms["TaskForm"]["date"];
+        console.log(newDueDate.value);
+        let newPriority = document.forms["TaskForm"]["priority"];
+        console.log(newPriority.value);
+
+        taskController.createTask(newTitle.value, newDescription.value, newDueDate.value, newPriority.value);
+        taskView.closeForm();
+    });
+}
+
+document.querySelector(".cancel-btn").addEventListener("click", function() {
+    taskView.closeForm();
+});
+
+executeSubmitButton();
 createEventListeners();
 

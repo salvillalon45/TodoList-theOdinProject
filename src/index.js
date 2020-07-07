@@ -74,7 +74,32 @@ function createEventListeners() {
 
             projectView.removeActiveForAllUserProject();
             projectView.insertActiveInUserProject(i);
-            taskView.renderTasksForProjectView(projectName);
+            // taskView.renderTasksForProjectView(projectName);
+            taskView.renderUserTaskDetails(projectName);
+            createEventListenerTrashIcon(projectName);
+        });
+    }
+}
+
+function createEventListenerTrashIcon(projectName) {
+    let trashIconArray = Array.from(document.querySelectorAll(".trash-icon"));
+    let userTaskDetailContainerArray = Array.from(document.querySelectorAll(".user-tasks-details-container"));
+    console.log(userTaskDetailContainerArray.length);
+    console.log(trashIconArray.length);
+    for (let i = 0; i < userTaskDetailContainerArray.length; i++) {
+        console.log("I:: " + i);
+        let trashIcon = trashIconArray[i];
+        let userTaskDetailContainer = userTaskDetailContainerArray[i];
+
+        trashIcon.addEventListener("click", function() {
+            console.log("adding event listener");
+            let index = userTaskDetailContainer.id;
+            // let index = trashIcon.classList.item(1);
+
+            console.log("index:: " + index);
+            taskController.deleteTask(index);
+            taskView.deleteTaskFromView(index);
+            taskView.renderUserTaskDetails(projectName);
         });
     }
 }
@@ -87,15 +112,13 @@ function executeSubmitButton() {
     document.querySelector(".submit-btn").addEventListener("click", function() {
 
         let newTitle = document.forms["TaskForm"]["title"];
-        console.log(newTitle.value);
         let newDescription = document.forms["TaskForm"]["description"];
-        console.log(newDescription.value);
         let newDueDate = document.forms["TaskForm"]["date"];
-        console.log(newDueDate.value);
         let newPriority = document.forms["TaskForm"]["priority"];
-        console.log(newPriority.value);
 
         taskController.createTask(newTitle.value, newDescription.value, newDueDate.value, newPriority.value);
+        const projectName = document.querySelector(".active").innerHTML;
+        taskView.renderTasksForProjectView(projectName);
         taskView.closeForm();
     });
 }
@@ -106,4 +129,5 @@ document.querySelector(".cancel-btn").addEventListener("click", function() {
 
 executeSubmitButton();
 createEventListeners();
+createEventListenerTrashIcon();
 

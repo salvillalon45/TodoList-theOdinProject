@@ -1,18 +1,5 @@
 import { taskFactory } from "../models/task";
 
-// let project2Task2 = {
-//     taskName: "PROJECT TWO TASK 2",
-//     Description: "Take out trash every sunday",
-//     Due:"2020-06-29",
-//     Priority: "high"
-// }
-//
-// let project2 = {
-//     name: "Project 2",
-//     tasks: [project2Task1, project2Task2]
-// }
-
-
 const taskControllerFactory = function()  {
 
     function getProject() {
@@ -22,9 +9,7 @@ const taskControllerFactory = function()  {
     }
 
     function createTask(newTaskName, newDescription, newDueDate, newPriority) {
-        console.log("Inside createTask()");
         let project = getProject();
-
         let task = taskFactory(newTaskName, newDescription, newDueDate, newPriority);
         project.tasks.push(task);
 
@@ -32,13 +17,21 @@ const taskControllerFactory = function()  {
     }
 
     function storeInStorage(projectName, projectObj) {
-        console.log("Inside storeInStorage()");
+        window.localStorage.setItem(projectName, JSON.stringify(projectObj));
+    }
 
-        window.localStorage.setItem(projectName, projectObj);
+    function deleteTask(index) {
+        let project = getProject();
+
+        console.table(project.tasks);
+        project.tasks.splice(Number(index), 1);
+        console.table(project.tasks);
+
+        storeInStorage(project.name, project);
     }
 
     return {
-        createTask
+        createTask, deleteTask
     };
 }
 

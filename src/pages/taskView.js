@@ -50,6 +50,70 @@ const taskViewFactory = function()  {
         content.append(main);
     }
 
+    function createUserTaskDetails(name, description, dueDate, priority, userTaskContainer, index) {
+        const userTaskDetailsContainer = document.createElement("div");
+        userTaskDetailsContainer.classList.add("user-tasks-details-container");
+        userTaskDetailsContainer.setAttribute("id", index);
+
+        const nameDOM = document.createElement("h3");
+        nameDOM.classList.add("task-name");
+        nameDOM.innerHTML = name;
+
+        const descriptionDOM = document.createElement("p");
+        descriptionDOM.classList.add("task-description");
+        descriptionDOM.innerHTML = "<strong>Task Description: </strong>" + description;
+
+        const dueDateDOM = document.createElement("p");
+        dueDateDOM.classList.add("task-due-date");
+        dueDateDOM.innerHTML = "<strong>Due Date: </strong>" + dueDate;
+
+        const priorityDOM = document.createElement("p");
+        priorityDOM.classList.add("task-priority");
+        priorityDOM.innerHTML = "<strong>Priority: </strong>" + priority;
+
+        const iconsContainer = document.createElement("div");
+        iconsContainer.classList.add("icons-container");
+
+        const trash = document.createElement("p");
+        trash.classList.add("trash-icon");
+        trash.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
+
+        const edit = document.createElement("p");
+        edit.classList.add("edit-icon");
+        edit.innerHTML = '<i class="fa fa-pencil" aria-hidden="true"></i>\n';
+
+        userTaskDetailsContainer.append(nameDOM);
+        userTaskDetailsContainer.append(descriptionDOM);
+        userTaskDetailsContainer.append(dueDateDOM);
+        userTaskDetailsContainer.append(priorityDOM);
+        iconsContainer.append(edit);
+        iconsContainer.append(trash);
+        userTaskDetailsContainer.append(iconsContainer);
+        userTaskContainer.append(userTaskDetailsContainer);
+    }
+
+    function renderUserTaskDetails(projectName) {
+        removeTasksForProjectView();
+
+        const userTaskContainer = document.querySelector(".user-task-container");
+        let projectSelected = JSON.parse(window.localStorage.getItem(projectName));
+        let tasks = projectSelected.tasks;
+
+        for (let i = 0; i < tasks.length; i++) {
+            let name = tasks[i].taskName;
+            let description = tasks[i].Description;
+            let dueDate = tasks[i].Due;
+            let priority = tasks[i].Priority;
+
+            createUserTaskDetails(name, description, dueDate, priority, userTaskContainer, i);
+        }
+
+        taskContainer.append(userTaskContainer);
+        main.append(taskContainer);
+        content.append(main);
+    }
+
+
     function renderTasksForProjectView(projectName) {
         console.log("Inside renderTasksForProject");
 
@@ -80,6 +144,19 @@ const taskViewFactory = function()  {
 
         while (userTaskContainer.firstChild) {
             userTaskContainer.removeChild(userTaskContainer.firstChild);
+        }
+    }
+
+    function deleteTaskFromView(index) {
+        const userTaskContainer = document.querySelector(".user-task-container");
+        const userTaskDetailContainerArray = Array.from(document.querySelectorAll(".user-task-detail-container"));
+
+        for (let i = 0; i < userTaskDetailContainerArray.length; i++) {
+            let id = userTaskDetailContainerArray[i].id;
+
+            if (id === index) {
+                userTaskContainer.removeChild(userTaskDetailContainerArray[i]);
+            }
         }
     }
 
@@ -192,7 +269,8 @@ const taskViewFactory = function()  {
     }
 
     return {
-        render, renderTasksForProjectView, removeTasksForProjectView, createUserTask, openForm, closeForm
+        render, renderTasksForProjectView, removeTasksForProjectView,
+        createUserTask, openForm, closeForm, renderUserTaskDetails, deleteTaskFromView
     }
 }
 

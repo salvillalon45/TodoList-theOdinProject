@@ -119,6 +119,35 @@ main {
   width: 100%;
 }
 
+.active {
+  background-color: #FFF4BD;
+}
+
+.task-name {
+  margin-top: 10px;
+}
+
+.user-tasks-details-container {
+  margin-bottom: 30px;
+}
+
+.icons-container {
+  display: flex;
+}
+.edit-icon {
+  margin-right: 10px;
+}
+
+.fa {
+  font-size: larger;
+}
+
+.task-due-date, .task-description, .task-priority {
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
 .tasks-container {
   /*flex: 1 0 0;*/
   height: 100%;
@@ -166,7 +195,6 @@ main {
 .task-details-container h3 {
   font-size: x-large;
 }
-
 
 .intro-task-container {
   display: flex;

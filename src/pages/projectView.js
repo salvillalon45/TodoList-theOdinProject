@@ -5,20 +5,37 @@ const projectViewFactory = function()  {
 
     const projectContainer = document.createElement("div");
     projectContainer.classList.add("projects-container");
-    projectContainer.innerHTML = "<h2>Projects</h2>";
 
-    function createInputProjectContainer() {
-        console.log("Inside createInputProjectContainer()");
+    function createProjectContainerIntro() {
+        const projectIntroContainer = document.createElement("div");
+        const title = document.createElement("h2");
+        const addProjectBtn = document.createElement("button");
 
-        const inputProjectsContainer = document.createElement("div");
-        inputProjectsContainer.classList.add("input-project-container");
+        addProjectBtn.classList.add("add-project-btn");
+        projectIntroContainer.classList.add("intro-project-container");
 
-        inputProjectsContainer.innerHTML = '<label for="input-project"></label>' + '<input id="input-project" placeholder="New project...">';
+        title.textContent = "Projects";
+        addProjectBtn.textContent = "Add Project";
 
-        projectContainer.append(inputProjectsContainer);
+        projectIntroContainer.append(title);
+        projectIntroContainer.append(addProjectBtn);
+        projectContainer.append(projectIntroContainer);
         main.append(projectContainer);
         content.append(main);
     }
+
+    // function createInputProjectContainer() {
+    //     console.log("Inside createInputProjectContainer()");
+    //
+    //     const inputProjectsContainer = document.createElement("div");
+    //     inputProjectsContainer.classList.add("input-project-container");
+    //
+    //     inputProjectsContainer.innerHTML = '<label for="input-project"></label>' + '<input id="input-project" placeholder="New project...">';
+    //
+    //     projectContainer.append(inputProjectsContainer);
+    //     main.append(projectContainer);
+    //     content.append(main);
+    // }
 
     function createUserProjectContainer() {
         console.log("Inside createUserProjectContainer()");
@@ -84,13 +101,14 @@ const projectViewFactory = function()  {
                 main.append(projectContainer);
                 content.append(main);
 
-                console.log(`${key} : ${storage[key]}`);
+                // console.log(`${key} : ${storage[key]}`);
             }
         }
     }
 
     function render() {
-        createInputProjectContainer();
+        createProjectContainerIntro()
+        // createInputProjectContainer();
         createUserProjectContainer();
         renderAllUserProjects();
     }

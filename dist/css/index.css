@@ -196,13 +196,12 @@ main {
   font-size: x-large;
 }
 
-.intro-task-container {
+.intro-task-container, .intro-project-container {
   display: flex;
 }
 
-.add-task-btn {
+.add-task-btn, .add-project-btn {
   margin: 15px;
-  /* width: 178px; */
   border-radius: 10px;
   background-color: #99949c;
   border: none;
@@ -212,8 +211,12 @@ main {
   font-size: 16px;
 }
 
-.add-task-btn:hover {
+.add-task-btn:hover, .add-project-btn:hover {
   background-color: red;
+}
+
+.add-task-btn:focus, .add-project-btn:focus {
+  outline: none;
 }
 
 /* Form Page Content */

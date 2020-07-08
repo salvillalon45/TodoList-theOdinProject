@@ -1,12 +1,12 @@
-const taskFactory = function(newTaskName, newDescription, newDue, newPriority)  {
+const taskFactory = function(newTaskName, newDescription, newDueDate, newPriority)  {
 
     let taskName = newTaskName;
     let description = newDescription;
-    let due = newDue;
+    let dueDate = newDueDate;
     let priority = newPriority;
 
     return {
-        taskName, description, due, priority
+        taskName, description, dueDate, priority
     };
 }
 

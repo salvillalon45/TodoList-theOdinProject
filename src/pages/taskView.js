@@ -96,14 +96,18 @@ const taskViewFactory = function()  {
         removeTasksForProjectView();
 
         const userTaskContainer = document.querySelector(".user-task-container");
-        let projectSelected = JSON.parse(window.localStorage.getItem(projectName));
-        let tasks = projectSelected.tasks;
-
+        const projectSelected = JSON.parse(window.localStorage.getItem(projectName));
+        const tasks = projectSelected.tasks;
+        console.table(tasks);
         for (let i = 0; i < tasks.length; i++) {
-            let name = tasks[i].taskName;
-            let description = tasks[i].Description;
-            let dueDate = tasks[i].Due;
-            let priority = tasks[i].Priority;
+            const name = tasks[i].taskName;
+            const description = tasks[i].description;
+            const dueDate = tasks[i].dueDate;
+            const priority = tasks[i].priority;
+            console.log(name);
+            console.log(description);
+            console.log(dueDate);
+            console.log(priority);
 
             createUserTaskDetails(name, description, dueDate, priority, userTaskContainer, i);
         }
@@ -126,7 +130,6 @@ const taskViewFactory = function()  {
         for (let i = 0; i < tasks.length; i++) {
             const userTask = document.createElement("p");
             userTask.classList.add("user-task");
-            console.log("What is tasks[i]:: " + tasks[i].taskName);
             userTask.innerHTML = tasks[i].taskName;
 
             userTaskContainer.append(userTask);
@@ -148,14 +151,17 @@ const taskViewFactory = function()  {
     }
 
     function deleteTaskFromView(index) {
+        console.log("Inside deleteTaskFromView()");
+
         const userTaskContainer = document.querySelector(".user-task-container");
-        const userTaskDetailContainerArray = Array.from(document.querySelectorAll(".user-task-detail-container"));
+        const userTaskDetailContainerArray = Array.from(document.querySelectorAll(".user-tasks-details-container"));
 
         for (let i = 0; i < userTaskDetailContainerArray.length; i++) {
             let id = userTaskDetailContainerArray[i].id;
 
             if (id === index) {
-                userTaskContainer.removeChild(userTaskDetailContainerArray[i]);
+                userTaskContainer.removeChild(userTaskDetailContainerArray[id]);
+                const userTaskDetailContainerArray1 = Array.from(document.querySelectorAll(".user-tasks-details-container"));
             }
         }
     }

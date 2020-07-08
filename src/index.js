@@ -12,16 +12,16 @@ let taskController = taskControllerFactory();
 
 let project1Task1 = {
     taskName: "Create A New Project",
-    Description: "To create a new Project, type its name in the field in the left pane, then press Enter button.",
-    Due:"2020-06-29",
-    Priority: "high"
+    description: "To create a new Project, type its name in the field in the left pane, then press Enter button.",
+    dueDate:"2020-06-29",
+    priority: "high"
 }
 
 let project1Task2 = {
     taskName: "Take out trash",
-    Description: "Take out trash every sunday",
-    Due:"2020-06-29",
-    Priority: "high"
+    description: "Take out trash every sunday",
+    dueDate:"2020-06-29",
+    priority: "high"
 }
 
 let project1 = {
@@ -31,16 +31,16 @@ let project1 = {
 
 let project2Task1 = {
     taskName: "PROJECT TWO TASK 1",
-    Description: "To create a new Project, type its name in the field in the left pane, then press Enter button.",
-    Due:"2020-06-29",
-    Priority: "high"
+    description: "To create a new Project, type its name in the field in the left pane, then press Enter button.",
+    dueDate:"2020-06-29",
+    priority: "high"
 }
 
 let project2Task2 = {
     taskName: "PROJECT TWO TASK 2",
-    Description: "Take out trash every sunday",
-    Due:"2020-06-29",
-    Priority: "high"
+    description: "Take out trash every sunday",
+    dueDate:"2020-06-29",
+    priority: "high"
 }
 
 let project2 = {
@@ -61,8 +61,8 @@ taskView.render();
 //     document.getElementById("input-project").value = "";
 // });
 
-function createEventListeners() {
-    console.log("inside createEventListeners");
+function createEventListenersForUserProject() {
+    console.log("inside createEventListenersForUserProject");
 
     let userProjectArray = Array.from(document.querySelectorAll(".user-project"));
 
@@ -74,60 +74,70 @@ function createEventListeners() {
 
             projectView.removeActiveForAllUserProject();
             projectView.insertActiveInUserProject(i);
-            // taskView.renderTasksForProjectView(projectName);
             taskView.renderUserTaskDetails(projectName);
-            createEventListenerTrashIcon(projectName);
+            createEventListenerForTrashIcon(projectName);
         });
     }
 }
 
-function createEventListenerTrashIcon(projectName) {
+function createEventListenerForTrashIcon(projectName) {
     let trashIconArray = Array.from(document.querySelectorAll(".trash-icon"));
     let userTaskDetailContainerArray = Array.from(document.querySelectorAll(".user-tasks-details-container"));
-    console.log(userTaskDetailContainerArray.length);
-    console.log(trashIconArray.length);
+
     for (let i = 0; i < userTaskDetailContainerArray.length; i++) {
-        console.log("I:: " + i);
         let trashIcon = trashIconArray[i];
         let userTaskDetailContainer = userTaskDetailContainerArray[i];
 
         trashIcon.addEventListener("click", function() {
-            console.log("adding event listener");
             let index = userTaskDetailContainer.id;
-            // let index = trashIcon.classList.item(1);
-
-            console.log("index:: " + index);
-            taskController.deleteTask(index);
             taskView.deleteTaskFromView(index);
+            taskController.deleteTask(index);
             taskView.renderUserTaskDetails(projectName);
         });
     }
 }
 
-document.querySelector(".add-task-btn").addEventListener("click", function() {
-    taskView.openForm();
-});
+function createEventListenerForAddTaskButton() {
+    document.querySelector(".add-task-btn").addEventListener("click", function() {
+        const openFormCheck = executeSubmitButtonForTaskForm();
+        if (openFormCheck !== null) {
+            taskView.openForm();
+        }
+    });
+}
 
-function executeSubmitButton() {
-    document.querySelector(".submit-btn").addEventListener("click", function() {
+function executeSubmitButtonForTaskForm() {
+    console.log("Inside executeSubmitButtonForTaskForm");
+    const projectName1 = document.querySelector(".active");
+    console.log(projectName1);
+    console.log(document.readyState);
+    if (projectName1 === null) {
+        alert("You need to select a project first");
+        return null;
+    }
+    else {
+        document.querySelector(".submit-btn").addEventListener("click", function() {
+            console.log("Clicked on submit button");
 
-        let newTitle = document.forms["TaskForm"]["title"];
-        let newDescription = document.forms["TaskForm"]["description"];
-        let newDueDate = document.forms["TaskForm"]["date"];
-        let newPriority = document.forms["TaskForm"]["priority"];
+            let newTitle = document.forms["TaskForm"]["title"];
+            let newDescription = document.forms["TaskForm"]["description"];
+            let newDueDate = document.forms["TaskForm"]["date"];
+            let newPriority = document.forms["TaskForm"]["priority"];
 
-        taskController.createTask(newTitle.value, newDescription.value, newDueDate.value, newPriority.value);
-        const projectName = document.querySelector(".active").innerHTML;
-        taskView.renderTasksForProjectView(projectName);
+            taskController.createTask(newTitle.value, newDescription.value, newDueDate.value, newPriority.value);
+            const projectName = document.querySelector(".active").innerHTML;
+            taskView.renderUserTaskDetails(projectName);
+            taskView.closeForm();
+        });
+    }
+}
+
+function closeTaskForm() {
+    document.querySelector(".cancel-btn").addEventListener("click", function() {
         taskView.closeForm();
     });
 }
 
-document.querySelector(".cancel-btn").addEventListener("click", function() {
-    taskView.closeForm();
-});
-
-executeSubmitButton();
-createEventListeners();
-createEventListenerTrashIcon();
-
+createEventListenersForUserProject();
+createEventListenerForAddTaskButton();
+closeTaskForm();

@@ -2,18 +2,18 @@ import { projectFactory } from "../models/project";
 
 const projectControllerFactory = function()  {
 
-    let project = projectFactory();
-
-    function createProject(projectTitle) {
+    function createProject(projectName) {
         console.log("Inside createProject()");
 
-        project.name = projectTitle;
+        let project = projectFactory(projectName);
+        project.name = projectName;
+        console.log("tasks::: --- " + project.tasks)
         storeInStorage(project.name, project);
     }
 
-    function storeInStorage(projectTitle, projectObj) {
+    function storeInStorage(projectName, projectObj) {
         console.log("Inside storeInStorage()");
-        window.localStorage.setItem(projectTitle, projectObj);
+        window.localStorage.setItem(projectName, projectObj);
     }
 
     return {

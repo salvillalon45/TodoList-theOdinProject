@@ -24,19 +24,6 @@ const projectViewFactory = function()  {
         content.append(main);
     }
 
-    // function createInputProjectContainer() {
-    //     console.log("Inside createInputProjectContainer()");
-    //
-    //     const inputProjectsContainer = document.createElement("div");
-    //     inputProjectsContainer.classList.add("input-project-container");
-    //
-    //     inputProjectsContainer.innerHTML = '<label for="input-project"></label>' + '<input id="input-project" placeholder="New project...">';
-    //
-    //     projectContainer.append(inputProjectsContainer);
-    //     main.append(projectContainer);
-    //     content.append(main);
-    // }
-
     function createUserProjectContainer() {
         console.log("Inside createUserProjectContainer()");
 
@@ -89,7 +76,6 @@ const projectViewFactory = function()  {
         for (let key in storage) {
             if (storage.hasOwnProperty(key)) {
                 let projectTitle = key;
-                let projectInfo = storage[key];
 
                 const userProject = document.createElement("p");
                 userProject.classList.add("user-project");
@@ -100,21 +86,75 @@ const projectViewFactory = function()  {
                 projectContainer.append(userProjectContainer);
                 main.append(projectContainer);
                 content.append(main);
-
-                // console.log(`${key} : ${storage[key]}`);
             }
         }
     }
 
+    function createProjectForm() {
+        const projectFormPage = document.createElement("div");
+        const projectForm = document.createElement("form");
+        projectFormPage.classList.add("project-form-page");
+        projectFormPage.classList.add("hidden");
+        projectForm.name = "ProjectForm";
+
+        let projectNameLabel = document.createElement('label');
+        projectNameLabel.setAttribute("for", "name");
+        projectNameLabel.innerHTML = "Project Name: ";
+        projectForm.append(projectNameLabel);
+
+        let projectNameInput = document.createElement("input");
+        projectNameInput.setAttribute("type", "text");
+        projectNameInput.setAttribute("name", "name");
+        projectNameInput.setAttribute("id", "name");
+        projectForm.append(projectNameInput);
+
+        let buttonContainer = document.createElement("div");
+        buttonContainer.classList.add("button-container");
+
+        let submitBtn = document.createElement("button");
+        submitBtn.setAttribute("type", "button");
+        submitBtn.classList.add("project-submit-btn");
+        submitBtn.innerHTML = "Submit";
+
+        let cancelBtn = document.createElement("button");
+        cancelBtn.setAttribute("type", "button");
+        cancelBtn.classList.add("project-cancel-btn");
+        cancelBtn.innerHTML = "Cancel";
+
+        buttonContainer.append(submitBtn);
+        buttonContainer.append(cancelBtn);
+        projectForm.append(buttonContainer);
+
+        projectFormPage.append(projectForm);
+        main.append(projectFormPage);
+        content.append(main);
+    }
+
+    function openForm() {
+        let formPage = document.querySelector(".project-form-page");
+        formPage.classList.remove("hidden");
+    }
+
+    function closeForm() {
+        let formPage = document.querySelector(".project-form-page");
+        formPage.classList.add("hidden");
+        clearFormFields();
+    }
+
+    function clearFormFields() {
+        document.forms["ProjectForm"].reset();
+    }
+
     function render() {
         createProjectContainerIntro()
-        // createInputProjectContainer();
         createUserProjectContainer();
         renderAllUserProjects();
+        createProjectForm();
     }
 
     return {
-        render, createUserProject, removeActiveInUserProject, insertActiveInUserProject, removeActiveForAllUserProject
+        render, createUserProject, removeActiveInUserProject, insertActiveInUserProject,
+        removeActiveForAllUserProject, openForm, closeForm
     }
 }
 

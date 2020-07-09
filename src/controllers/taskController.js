@@ -11,11 +11,6 @@ const taskControllerFactory = function()  {
     function createTask(newTaskName, newDescription, newDueDate, newPriority) {
         console.log("Inside createTask()");
 
-        // console.log(newTaskName)
-        // console.log(newDescription);
-        // console.log(newDueDate);
-        // console.log(newPriority);
-
         let project = getProject();
         let task = taskFactory(newTaskName, newDescription, newDueDate, newPriority);
         project.tasks.push(task);

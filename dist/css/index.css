@@ -155,7 +155,7 @@ main {
   overflow-y: scroll;
 }
 
-#input-task, #input-project  {
+#input-task, #input-project {
   font-size: 1rem;
   background-color: #A3C4C3;
   border: none;
@@ -221,7 +221,7 @@ main {
 
 /* Form Page Content */
 /* --------------------------------------- */
-.task-form-page {
+.task-form-page, .project-form-page {
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -249,7 +249,7 @@ form {
   padding: 5px;
 }
 
-.submit-btn, .cancel-btn {
+.task-submit-btn, .project-submit-btn, .project-cancel-btn, .task-cancel-btn {
   border-radius: 10px;
   background-color: #f8ecff;
   border: none;
@@ -260,7 +260,7 @@ form {
   font-weight: bold;
 }
 
-.submit-btn:hover, .cancel-btn:hover {
+.project-submit-btn:hover, .task-submit-btn:hover, .task-cancel-btn:hover, .project-cancel-btn:hover {
   background-color: #948b99;
 }
 
@@ -268,7 +268,7 @@ form {
   margin: 0 auto;
 }
 
-.button-container .submit-btn {
+.button-container .project-submit-btn, .button-container .task-submit-btn{
   margin-top: 19px;
   margin-right: 15px;
 }

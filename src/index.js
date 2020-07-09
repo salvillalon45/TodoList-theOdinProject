@@ -53,14 +53,12 @@ window.localStorage.setItem(project2.name, JSON.stringify(project2));
 
 projectView.render();
 taskView.render();
-// document.getElementById("input-project").addEventListener("change", function(event) {
-//     let projectTitle = document.getElementById("input-project").value;
-//     console.log(projectTitle);
-//     projectController.createProject(projectTitle);
-//     projectView.createUserProject(projectTitle);
-//     document.getElementById("input-project").value = "";
-// });
 
+// ------------------------------------------------------------------------------------------------------------------------
+//
+// PROJECTS PANE
+//
+// ------------------------------------------------------------------------------------------------------------------------
 function createEventListenersForUserProject() {
     console.log("inside createEventListenersForUserProject");
 
@@ -80,6 +78,44 @@ function createEventListenersForUserProject() {
     }
 }
 
+function executeSubmitButtonForProjectForm() {
+    console.log("Inside executeSubmitButtonForProjectForm");
+
+    document.querySelector(".project-submit-btn").addEventListener("click", function(event) {
+        console.log("Clicked on submit button");
+        event.stopImmediatePropagation();
+
+        let newProjectName = document.forms["ProjectForm"]["name"].value;
+        console.log("what is newProjectName:: " + newProjectName);
+
+        projectController.createProject(newProjectName)
+        projectView.createUserProject(newProjectName);
+        projectView.closeForm();
+    });
+}
+
+function createEventListenerForAddProjectButton() {
+    document.querySelector(".add-project-btn").addEventListener("click", function() {
+        executeSubmitButtonForProjectForm();
+        projectView.openForm();
+    });
+}
+
+function closeProjectForm() {
+    document.querySelector(".project-cancel-btn").addEventListener("click", function() {
+        projectView.closeForm();
+    });
+}
+
+createEventListenersForUserProject();
+createEventListenerForAddProjectButton();
+closeProjectForm();
+
+// ------------------------------------------------------------------------------------------------------------------------
+//
+// TASKS PANE
+//
+// ------------------------------------------------------------------------------------------------------------------------
 function createEventListenerForTrashIcon(projectName) {
     let trashIconArray = Array.from(document.querySelectorAll(".trash-icon"));
     let userTaskDetailContainerArray = Array.from(document.querySelectorAll(".user-tasks-details-container"));
@@ -108,36 +144,27 @@ function createEventListenerForAddTaskButton() {
 
 function executeSubmitButtonForTaskForm() {
     console.log("Inside executeSubmitButtonForTaskForm");
-    const projectName1 = document.querySelector(".active");
-    console.log(projectName1);
-    console.log(document.readyState);
-    if (projectName1 === null) {
-        alert("You need to select a project first");
-        return null;
-    }
-    else {
-        document.querySelector(".submit-btn").addEventListener("click", function() {
-            console.log("Clicked on submit button");
 
-            let newTitle = document.forms["TaskForm"]["title"];
-            let newDescription = document.forms["TaskForm"]["description"];
-            let newDueDate = document.forms["TaskForm"]["date"];
-            let newPriority = document.forms["TaskForm"]["priority"];
+    document.querySelector(".task-submit-btn").addEventListener("click", function() {
+        console.log("Clicked on submit button");
 
-            taskController.createTask(newTitle.value, newDescription.value, newDueDate.value, newPriority.value);
-            const projectName = document.querySelector(".active").innerHTML;
-            taskView.renderUserTaskDetails(projectName);
-            taskView.closeForm();
-        });
-    }
-}
+        let newTitle = document.forms["TaskForm"]["title"];
+        let newDescription = document.forms["TaskForm"]["description"];
+        let newDueDate = document.forms["TaskForm"]["date"];
+        let newPriority = document.forms["TaskForm"]["priority"];
 
-function closeTaskForm() {
-    document.querySelector(".cancel-btn").addEventListener("click", function() {
+        taskController.createTask(newTitle.value, newDescription.value, newDueDate.value, newPriority.value);
+        const projectName = document.querySelector(".active").innerHTML;
+        taskView.renderUserTaskDetails(projectName);
         taskView.closeForm();
     });
 }
 
-createEventListenersForUserProject();
+function closeTaskForm() {
+    document.querySelector(".task-cancel-btn").addEventListener("click", function() {
+        taskView.closeForm();
+    });
+}
+
 createEventListenerForAddTaskButton();
 closeTaskForm();

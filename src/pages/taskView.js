@@ -92,29 +92,48 @@ const taskViewFactory = function()  {
         userTaskContainer.append(userTaskDetailsContainer);
     }
 
+    function createEmptyProjectNotice() {
+        const emptyNotice = document.createElement("p");
+        emptyNotice.innerHTML = "<strong>Project has no tasks!</strong>" + "<br>" + "<br>" +" Click on Add Task to add to it!";
+        return emptyNotice;
+    }
+
     function renderUserTaskDetails(projectName) {
+
         removeTasksForProjectView();
 
         const userTaskContainer = document.querySelector(".user-task-container");
-        const projectSelected = JSON.parse(window.localStorage.getItem(projectName));
-        const tasks = projectSelected.tasks;
-        console.table(tasks);
-        for (let i = 0; i < tasks.length; i++) {
-            const name = tasks[i].taskName;
-            const description = tasks[i].description;
-            const dueDate = tasks[i].dueDate;
-            const priority = tasks[i].priority;
-            console.log(name);
-            console.log(description);
-            console.log(dueDate);
-            console.log(priority);
+        const tasksCheck = window.localStorage.getItem(projectName);
 
-            createUserTaskDetails(name, description, dueDate, priority, userTaskContainer, i);
+        if (tasksCheck.length === 15) {
+            const emptyNotice = createEmptyProjectNotice();
+
+            userTaskContainer.append(emptyNotice);
+            taskContainer.append(userTaskContainer);
+            main.append(taskContainer);
+            content.append(main);
         }
+        else {
+            const projectSelected = JSON.parse(window.localStorage.getItem(projectName));
+            const tasks = projectSelected.tasks;
 
-        taskContainer.append(userTaskContainer);
-        main.append(taskContainer);
-        content.append(main);
+            for (let i = 0; i < tasks.length; i++) {
+                const name = tasks[i].taskName;
+                const description = tasks[i].description;
+                const dueDate = tasks[i].dueDate;
+                const priority = tasks[i].priority;
+                console.log(name);
+                console.log(description);
+                console.log(dueDate);
+                console.log(priority);
+
+                createUserTaskDetails(name, description, dueDate, priority, userTaskContainer, i);
+            }
+
+            taskContainer.append(userTaskContainer);
+            main.append(taskContainer);
+            content.append(main);
+        }
     }
 
 
@@ -144,10 +163,11 @@ const taskViewFactory = function()  {
         console.log("Inside removeTasksFromView()");
 
         const userTaskContainer = document.querySelector(".user-task-container");
-
+        console.log("GOing to remove");
         while (userTaskContainer.firstChild) {
             userTaskContainer.removeChild(userTaskContainer.firstChild);
         }
+        console.log("After");
     }
 
     function deleteTaskFromView(index) {
@@ -236,12 +256,12 @@ const taskViewFactory = function()  {
 
         let submitBtn = document.createElement("button");
         submitBtn.setAttribute("type", "button");
-        submitBtn.classList.add("submit-btn");
+        submitBtn.classList.add("task-submit-btn");
         submitBtn.innerHTML = "Submit";
 
         let cancelBtn = document.createElement("button");
         cancelBtn.setAttribute("type", "button");
-        cancelBtn.classList.add("cancel-btn");
+        cancelBtn.classList.add("task-cancel-btn");
         cancelBtn.innerHTML = "Cancel";
 
         buttonContainer.append(submitBtn);

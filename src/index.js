@@ -62,18 +62,20 @@ taskView.render();
 function createEventListenersForUserProject() {
     console.log("inside createEventListenersForUserProject");
 
-    let userProjectArray = Array.from(document.querySelectorAll(".user-project"));
+    let userProjectArray = Array.from(document.querySelectorAll(".user-project-text"));
 
     for (let i = 0; i < userProjectArray.length; i++) {
         let userProject = userProjectArray[i];
 
         userProject.addEventListener("click", function () {
-            let projectName = this.innerHTML;
+            console.log("adding event to user project");
 
+            let projectName = this.textContent;
             projectView.removeActiveForAllUserProject();
             projectView.insertActiveInUserProject(i);
+            createEventListenerForTrashIconTasks(projectName);
+            // When they click on project we want them to show all tasks
             taskView.renderUserTaskDetails(projectName);
-            createEventListenerForTrashIcon(projectName);
         });
     }
 }
@@ -107,8 +109,30 @@ function closeProjectForm() {
     });
 }
 
+function createEventListenerForTrashIconProjects() {
+    console.log("Inside createEventListenerForTrashIconProjects");
+
+    let trashIconArray = Array.from(document.querySelectorAll(".project-trash-icon"));
+    let userProjectArray = Array.from(document.querySelectorAll(".user-project"));
+
+    for (let i = 0; i < userProjectArray.length; i++) {
+        let trashIcon = trashIconArray[i];
+        let userProject = userProjectArray[i];
+
+        trashIcon.addEventListener("click", function() {
+            console.log("adding event listener to trashIcon");
+            const projectName = userProjectArray[i].textContent;
+            let index = userProject.id;
+            projectView.deleteProjectFromView(index);
+            projectController.deleteProject(projectName);
+            projectView.renderProjects();
+        });
+    }
+}
+
 createEventListenersForUserProject();
 createEventListenerForAddProjectButton();
+createEventListenerForTrashIconProjects();
 closeProjectForm();
 
 // ------------------------------------------------------------------------------------------------------------------------
@@ -116,8 +140,8 @@ closeProjectForm();
 // TASKS PANE
 //
 // ------------------------------------------------------------------------------------------------------------------------
-function createEventListenerForTrashIcon(projectName) {
-    let trashIconArray = Array.from(document.querySelectorAll(".trash-icon"));
+function createEventListenerForTrashIconTasks(projectName) {
+    let trashIconArray = Array.from(document.querySelectorAll(".task-trash-icon"));
     let userTaskDetailContainerArray = Array.from(document.querySelectorAll(".user-tasks-details-container"));
 
     for (let i = 0; i < userTaskDetailContainerArray.length; i++) {

@@ -178,6 +178,15 @@ main {
   padding: 1rem;
 }
 
+.user-project {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-project-text {
+  width: 500px;
+}
+
 .user-project-container .selected {
   background-color: #FBE29C;
   padding: 1rem;

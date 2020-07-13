@@ -38,12 +38,22 @@ const projectViewFactory = function()  {
     function createUserProject(projectName) {
         console.log("Inside createUserProject()");
 
-        const userProject = document.createElement("p");
+        const userProject = document.createElement("div");
         userProject.classList.add("user-project");
 
-        userProject.innerHTML = projectName;
+        const userProjectText = document.createElement("p");
+        userProjectText.classList.add("user-project-text");
+        userProjectText.innerHTML = projectName;
+
+        // userProject.innerHTML = projectName;
+
+        const trash = document.createElement("p");
+        trash.classList.add("project-trash-icon");
+        trash.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
 
         const userProjectContainer = document.querySelector(".user-project-container");
+        userProject.append(userProjectText);
+        userProject.append(trash);
         userProjectContainer.append(userProject);
         projectContainer.append(userProjectContainer);
         main.append(projectContainer);
@@ -68,24 +78,38 @@ const projectViewFactory = function()  {
         }
     }
 
-    function renderAllUserProjects() {
-        console.log("Inside renderAllUserProjects()");
+    function renderProjects() {
+        console.log("Inside renderProjects()");
 
         let storage = window.localStorage;
+        let index = 0;
 
         for (let key in storage) {
             if (storage.hasOwnProperty(key)) {
-                let projectTitle = key;
 
-                const userProject = document.createElement("p");
+                let projectName = key;
+                console.log("What is projectName check in renderProjects:: " + projectName);
+                const userProject = document.createElement("div");
                 userProject.classList.add("user-project");
-                userProject.innerHTML = projectTitle;
+                userProject.id = index.toString();
+
+                const userProjectText = document.createElement("p");
+                userProjectText.classList.add("user-project-text");
+                userProjectText.innerHTML = projectName;
+
+                const trash = document.createElement("p");
+                trash.classList.add("project-trash-icon");
+                trash.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
 
                 const userProjectContainer = document.querySelector(".user-project-container");
+                userProject.append(userProjectText);
+                userProject.append(trash);
                 userProjectContainer.append(userProject);
                 projectContainer.append(userProjectContainer);
                 main.append(projectContainer);
                 content.append(main);
+
+                index++;
             }
         }
     }
@@ -145,16 +169,33 @@ const projectViewFactory = function()  {
         document.forms["ProjectForm"].reset();
     }
 
+    function deleteProjectFromView(index) {
+        console.log("Inside deleteProjectFromView()");
+
+        const userTaskContainer = document.querySelector(".user-project-container");
+        const userProjectArray = Array.from(document.querySelectorAll(".user-project"));
+
+        for (let i = 0; i < userProjectArray.length; i++) {
+            let id = userProjectArray[i].id;
+
+            if (id === index) {
+                console.log("What is id:: " + id);
+                console.log("What is index:: " + index);
+                userTaskContainer.removeChild(userProjectArray[id]);
+            }
+        }
+    }
+
     function render() {
         createProjectContainerIntro()
         createUserProjectContainer();
-        renderAllUserProjects();
+        renderProjects();
         createProjectForm();
     }
 
     return {
         render, createUserProject, removeActiveInUserProject, insertActiveInUserProject,
-        removeActiveForAllUserProject, openForm, closeForm
+        removeActiveForAllUserProject, openForm, closeForm, deleteProjectFromView, renderProjects
     }
 }
 

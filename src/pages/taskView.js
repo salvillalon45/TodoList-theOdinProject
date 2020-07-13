@@ -75,7 +75,7 @@ const taskViewFactory = function()  {
         iconsContainer.classList.add("icons-container");
 
         const trash = document.createElement("p");
-        trash.classList.add("trash-icon");
+        trash.classList.add("task-trash-icon");
         trash.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
 
         const edit = document.createElement("p");
@@ -104,6 +104,7 @@ const taskViewFactory = function()  {
 
         const userTaskContainer = document.querySelector(".user-task-container");
         const tasksCheck = window.localStorage.getItem(projectName);
+        console.log("What is taskChecks " + tasksCheck )
 
         if (tasksCheck.length === 15) {
             const emptyNotice = createEmptyProjectNotice();
@@ -162,10 +163,10 @@ const taskViewFactory = function()  {
     function removeTasksForProjectView() {
         console.log("Inside removeTasksFromView()");
 
-        const userTaskContainer = document.querySelector(".user-task-container");
+        const userProjectContainer = document.querySelector(".user-task-container");
         console.log("GOing to remove");
-        while (userTaskContainer.firstChild) {
-            userTaskContainer.removeChild(userTaskContainer.firstChild);
+        while (userProjectContainer.firstChild) {
+            userProjectContainer.removeChild(userProjectContainer.firstChild);
         }
         console.log("After");
     }
@@ -181,7 +182,6 @@ const taskViewFactory = function()  {
 
             if (id === index) {
                 userTaskContainer.removeChild(userTaskDetailContainerArray[id]);
-                const userTaskDetailContainerArray1 = Array.from(document.querySelectorAll(".user-tasks-details-container"));
             }
         }
     }

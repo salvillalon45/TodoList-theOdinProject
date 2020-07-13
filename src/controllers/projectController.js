@@ -16,8 +16,12 @@ const projectControllerFactory = function()  {
         window.localStorage.setItem(projectName, projectObj);
     }
 
+    function deleteProject(projectName) {
+        window.localStorage.removeItem(projectName);
+    }
+
     return {
-        createProject
+        createProject, deleteProject
     };
 }
 

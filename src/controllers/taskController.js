@@ -4,17 +4,16 @@ const taskControllerFactory = function()  {
 
     function getProject() {
         const selectedProject = document.querySelector(".active");
-        let projectName = selectedProject.innerHTML;
+        let projectName = selectedProject.textContent;
+
         return JSON.parse(window.localStorage.getItem(projectName));
     }
 
     function createTask(newTaskName, newDescription, newDueDate, newPriority) {
-        console.log("Inside createTask()");
 
         let project = getProject();
         let task = taskFactory(newTaskName, newDescription, newDueDate, newPriority);
         project.tasks.push(task);
-
         storeInStorage(project.name, project);
     }
 

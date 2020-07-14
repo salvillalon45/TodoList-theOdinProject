@@ -25,8 +25,6 @@ const taskViewFactory = function()  {
     }
 
     function createUserTaskContainer() {
-        console.log("Inside createUserTaskContainer()");
-
         const userTaskContainer = document.createElement("div");
         userTaskContainer.classList.add("user-task-container");
 
@@ -36,8 +34,6 @@ const taskViewFactory = function()  {
     }
 
     function createUserTask(taskName) {
-        console.log("Inside createUserTask()");
-
         const userTask = document.createElement("p");
         userTask.classList.add("user-task");
 
@@ -99,14 +95,12 @@ const taskViewFactory = function()  {
     }
 
     function renderUserTaskDetails(projectName) {
-
         removeTasksForProjectView();
 
         const userTaskContainer = document.querySelector(".user-task-container");
-        const tasksCheck = window.localStorage.getItem(projectName);
-        console.log("What is taskChecks " + tasksCheck )
+        const tasksCheck = JSON.parse(window.localStorage.getItem(projectName));
 
-        if (tasksCheck.length === 15) {
+        if (tasksCheck.tasks.length === 0) {
             const emptyNotice = createEmptyProjectNotice();
 
             userTaskContainer.append(emptyNotice);
@@ -123,10 +117,6 @@ const taskViewFactory = function()  {
                 const description = tasks[i].description;
                 const dueDate = tasks[i].dueDate;
                 const priority = tasks[i].priority;
-                console.log(name);
-                console.log(description);
-                console.log(dueDate);
-                console.log(priority);
 
                 createUserTaskDetails(name, description, dueDate, priority, userTaskContainer, i);
             }
@@ -139,8 +129,6 @@ const taskViewFactory = function()  {
 
 
     function renderTasksForProjectView(projectName) {
-        console.log("Inside renderTasksForProject");
-
         removeTasksForProjectView();
 
         const userTaskContainer = document.querySelector(".user-task-container");
@@ -161,19 +149,14 @@ const taskViewFactory = function()  {
     }
 
     function removeTasksForProjectView() {
-        console.log("Inside removeTasksFromView()");
-
         const userProjectContainer = document.querySelector(".user-task-container");
-        console.log("GOing to remove");
+
         while (userProjectContainer.firstChild) {
             userProjectContainer.removeChild(userProjectContainer.firstChild);
         }
-        console.log("After");
     }
 
     function deleteTaskFromView(index) {
-        console.log("Inside deleteTaskFromView()");
-
         const userTaskContainer = document.querySelector(".user-task-container");
         const userTaskDetailContainerArray = Array.from(document.querySelectorAll(".user-tasks-details-container"));
 

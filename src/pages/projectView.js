@@ -25,8 +25,6 @@ const projectViewFactory = function()  {
     }
 
     function createUserProjectContainer() {
-        console.log("Inside createUserProjectContainer()");
-
         const userProjectContainer = document.createElement("div");
         userProjectContainer.classList.add("user-project-container");
 
@@ -36,16 +34,12 @@ const projectViewFactory = function()  {
     }
 
     function createUserProject(projectName) {
-        console.log("Inside createUserProject()");
-
         const userProject = document.createElement("div");
         userProject.classList.add("user-project");
 
         const userProjectText = document.createElement("p");
         userProjectText.classList.add("user-project-text");
         userProjectText.innerHTML = projectName;
-
-        // userProject.innerHTML = projectName;
 
         const trash = document.createElement("p");
         trash.classList.add("project-trash-icon");
@@ -56,8 +50,8 @@ const projectViewFactory = function()  {
         userProject.append(trash);
         userProjectContainer.append(userProject);
         projectContainer.append(userProjectContainer);
-        main.append(projectContainer);
-        content.append(main);
+        // main.append(projectContainer);
+        // content.append(main);
     }
 
     function insertActiveInUserProject(index) {
@@ -79,7 +73,7 @@ const projectViewFactory = function()  {
     }
 
     function renderProjects() {
-        console.log("Inside renderProjects()");
+        deleteAllProjectsFromView();
 
         let storage = window.localStorage;
         let index = 0;
@@ -88,7 +82,6 @@ const projectViewFactory = function()  {
             if (storage.hasOwnProperty(key)) {
 
                 let projectName = key;
-                console.log("What is projectName check in renderProjects:: " + projectName);
                 const userProject = document.createElement("div");
                 userProject.classList.add("user-project");
                 userProject.id = index.toString();
@@ -106,8 +99,8 @@ const projectViewFactory = function()  {
                 userProject.append(trash);
                 userProjectContainer.append(userProject);
                 projectContainer.append(userProjectContainer);
-                main.append(projectContainer);
-                content.append(main);
+                // main.append(projectContainer);
+                // content.append(main);
 
                 index++;
             }
@@ -170,8 +163,6 @@ const projectViewFactory = function()  {
     }
 
     function deleteProjectFromView(index) {
-        console.log("Inside deleteProjectFromView()");
-
         const userTaskContainer = document.querySelector(".user-project-container");
         const userProjectArray = Array.from(document.querySelectorAll(".user-project"));
 
@@ -179,10 +170,17 @@ const projectViewFactory = function()  {
             let id = userProjectArray[i].id;
 
             if (id === index) {
-                console.log("What is id:: " + id);
-                console.log("What is index:: " + index);
                 userTaskContainer.removeChild(userProjectArray[id]);
             }
+        }
+    }
+
+    function deleteAllProjectsFromView() {
+        const userTaskContainer = document.querySelector(".user-project-container");
+        const userProjectArray = Array.from(document.querySelectorAll(".user-project"));
+
+        for (let i = 0; i < userProjectArray.length; i++) {
+            userTaskContainer.removeChild(userProjectArray[i]);
         }
     }
 

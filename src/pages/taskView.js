@@ -89,13 +89,31 @@ const taskViewFactory = function()  {
     }
 
     function createEmptyProjectNotice() {
+        const emptyNoticeContainer = document.createElement("div");
+        emptyNoticeContainer.classList.add("empty-notice-container");
         const emptyNotice = document.createElement("p");
         emptyNotice.innerHTML = "<strong>Project has no tasks!</strong>" + "<br>" + "<br>" +" Click on Add Task to add to it!";
-        return emptyNotice;
+        emptyNoticeContainer.append(emptyNotice);
+
+        return emptyNoticeContainer;
+    }
+
+    function deleteAllEmptyProjectNotices() {
+        const userTaskContainer = document.querySelector(".user-task-container");
+        const emptyNoticeContainerArray = Array.from(document.querySelectorAll(".empty-notice-container"));
+
+        for (let i = 0; i < emptyNoticeContainerArray.length; i++) {
+            userTaskContainer.removeChild(emptyNoticeContainerArray[i]);
+        }
     }
 
     function renderUserTaskDetails(projectName) {
-        removeTasksForProjectView();
+        deleteAllTasksFromView();
+        const emptyNoticeContainer = document.querySelector(".empty-notice-container");
+
+        if (emptyNoticeContainer !== null) {
+            deleteAllEmptyProjectNotices();
+        }
 
         const userTaskContainer = document.querySelector(".user-task-container");
         const tasksCheck = JSON.parse(window.localStorage.getItem(projectName));
@@ -105,8 +123,6 @@ const taskViewFactory = function()  {
 
             userTaskContainer.append(emptyNotice);
             taskContainer.append(userTaskContainer);
-            main.append(taskContainer);
-            content.append(main);
         }
         else {
             const projectSelected = JSON.parse(window.localStorage.getItem(projectName));
@@ -122,37 +138,46 @@ const taskViewFactory = function()  {
             }
 
             taskContainer.append(userTaskContainer);
-            main.append(taskContainer);
-            content.append(main);
+            // main.append(taskContainer);
+            // content.append(main);
         }
     }
 
 
-    function renderTasksForProjectView(projectName) {
-        removeTasksForProjectView();
+    // function renderTasksForProjectView(projectName) {
+    //     removeTasksForProjectView();
+    //
+    //     const userTaskContainer = document.querySelector(".user-task-container");
+    //     let projectSelected = JSON.parse(window.localStorage.getItem(projectName));
+    //     let tasks = projectSelected.tasks;
+    //
+    //     for (let i = 0; i < tasks.length; i++) {
+    //         const userTask = document.createElement("p");
+    //         userTask.classList.add("user-task");
+    //         userTask.innerHTML = tasks[i].taskName;
+    //
+    //         userTaskContainer.append(userTask);
+    //     }
+    //
+    //     taskContainer.append(userTaskContainer);
+    //     main.append(taskContainer);
+    //     content.append(main);
+    // }
 
+    // function removeTasksForProjectView() {
+    //     const userProjectContainer = document.querySelector(".user-task-container");
+    //
+    //     while (userProjectContainer.firstChild) {
+    //         userProjectContainer.removeChild(userProjectContainer.firstChild);
+    //     }
+    // }
+
+    function deleteAllTasksFromView() {
         const userTaskContainer = document.querySelector(".user-task-container");
-        let projectSelected = JSON.parse(window.localStorage.getItem(projectName));
-        let tasks = projectSelected.tasks;
+        const userTasksDetailsContainerArray = Array.from(document.querySelectorAll(".user-tasks-details-container"));
 
-        for (let i = 0; i < tasks.length; i++) {
-            const userTask = document.createElement("p");
-            userTask.classList.add("user-task");
-            userTask.innerHTML = tasks[i].taskName;
-
-            userTaskContainer.append(userTask);
-        }
-
-        taskContainer.append(userTaskContainer);
-        main.append(taskContainer);
-        content.append(main);
-    }
-
-    function removeTasksForProjectView() {
-        const userProjectContainer = document.querySelector(".user-task-container");
-
-        while (userProjectContainer.firstChild) {
-            userProjectContainer.removeChild(userProjectContainer.firstChild);
+        for (let i = 0; i < userTasksDetailsContainerArray.length; i++) {
+            userTaskContainer.removeChild(userTasksDetailsContainerArray[i]);
         }
     }
 
@@ -278,8 +303,7 @@ const taskViewFactory = function()  {
     }
 
     return {
-        render, renderTasksForProjectView, removeTasksForProjectView,
-        createUserTask, openForm, closeForm, renderUserTaskDetails, deleteTaskFromView
+        render, createUserTask, openForm, closeForm, renderUserTaskDetails, deleteTaskFromView
     }
 }
 

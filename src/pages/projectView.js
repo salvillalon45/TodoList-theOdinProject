@@ -176,11 +176,11 @@ const projectViewFactory = function()  {
     }
 
     function deleteAllProjectsFromView() {
-        const userTaskContainer = document.querySelector(".user-project-container");
+        const userProjectContainer = document.querySelector(".user-project-container");
         const userProjectArray = Array.from(document.querySelectorAll(".user-project"));
 
         for (let i = 0; i < userProjectArray.length; i++) {
-            userTaskContainer.removeChild(userProjectArray[i]);
+            userProjectContainer.removeChild(userProjectArray[i]);
         }
     }
 

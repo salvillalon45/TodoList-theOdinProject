@@ -5,54 +5,62 @@ import { taskControllerFactory } from "./controllers/taskController";
 
 console.log("Inside index.js");
 
-let projectController = projectControllerFactory();
-let projectView = projectViewFactory();
-let taskView = taskViewFactory();
-let taskController = taskControllerFactory();
+const projectController = projectControllerFactory();
+const projectView = projectViewFactory();
+const taskView = taskViewFactory();
+const taskController = taskControllerFactory();
 
-let project1Task1 = {
-    taskName: "Create A New Project",
-    description: "To create a new Project, type its name in the field in the left pane, then press Enter button.",
-    dueDate:"2020-06-29",
-    priority: "high"
+
+// <div class="intro-container">
+//     <header>
+//     <div class="nav-container">
+//     <div class="logo-container">
+//     <p class="logo">The Todo List App</p>
+// </div>
+//
+// <nav class="nav-links">
+//     <ul class="menu">
+//     <li class="nav-link"><a href="https://salvillalon45.github.io/">About Developer</a></li>
+// <li class="nav-link"><a href="https://www.linkedin.com/in/salvadorvillalon/">LinkedIn</a></li>
+// </ul>
+// </nav>
+// </div>
+// </header>
+// </div>
+
+function createHeader() {
+    const introContainer = document.createElement("div");
+    const header = document.createElement("header");
+    const navContainer = document.createElement("div");
+    const logoContainer = document.createElement("div");
+    introContainer.classList.add("intro-container");
+    navContainer.classList.add("nav-container");
+    logoContainer.classList.add("logo-container");
+    // const log
 }
 
-let project1Task2 = {
-    taskName: "Take out trash",
-    description: "Take out trash every sunday",
-    dueDate:"2020-06-29",
-    priority: "high"
+function createDefaultProject() {
+    const defaultProjectTask1 = {
+        taskName: "Default task 1",
+        description: "Description for default task 1",
+        dueDate: "2020-06-29",
+        priority: "high"
+    }
+
+    const defaultProjectTask2 = {
+        taskName: "Default task 2",
+        description: "Description for default task 2",
+        dueDate:"2020-06-29",
+        priority: "high"
+    }
+
+    const defaultProject = {
+        name: "Default Project",
+        tasks: [defaultProjectTask1, defaultProjectTask2]
+    }
+
+    window.localStorage.setItem(defaultProject.name, JSON.stringify(defaultProject));
 }
-
-let project1 = {
-    name: "Project 1",
-    tasks: [project1Task1, project1Task2]
-}
-
-let project2Task1 = {
-    taskName: "PROJECT TWO TASK 1",
-    description: "To create a new Project, type its name in the field in the left pane, then press Enter button.",
-    dueDate:"2020-06-29",
-    priority: "high"
-}
-
-let project2Task2 = {
-    taskName: "PROJECT TWO TASK 2",
-    description: "Take out trash every sunday",
-    dueDate:"2020-06-29",
-    priority: "high"
-}
-
-let project2 = {
-    name: "Project 2",
-    tasks: [project2Task1, project2Task2]
-}
-
-window.localStorage.setItem(project1.name, JSON.stringify(project1));
-window.localStorage.setItem(project2.name, JSON.stringify(project2));
-
-projectView.render();
-taskView.render();
 
 // ------------------------------------------------------------------------------------------------------------------------
 //
@@ -67,6 +75,7 @@ function createEventListenersForUserProject() {
 
         userProject.addEventListener("click", function () {
             let projectName = this.textContent;
+
             projectView.removeActiveForAllUserProject();
             projectView.insertActiveInUserProject(i);
             // When they click on project we want them to show all tasks
@@ -86,6 +95,8 @@ function executeSubmitButtonForProjectForm() {
         projectView.createUserProject(newProjectName);
         projectView.closeForm();
         projectView.renderProjects();
+        createEventListenersForUserProject();
+        createEventListenerForTrashIconProjects();
     });
 }
 
@@ -96,12 +107,11 @@ function createEventListenerForAddProjectButton() {
     });
 }
 
-// function closeProjectForm() {
-//     document.querySelector(".project-cancel-btn").addEventListener("click", function() {
-//         console.log("Click on cancel create project button");
-//         projectView.closeForm();
-//     });
-// }
+function closeProjectForm() {
+    document.querySelector(".project-cancel-btn").addEventListener("click", function() {
+        projectView.closeForm();
+    });
+}
 
 function createEventListenerForTrashIconProjects() {
     let trashIconArray = Array.from(document.querySelectorAll(".project-trash-icon"));
@@ -117,14 +127,11 @@ function createEventListenerForTrashIconProjects() {
             let index = userProject.id;
             projectView.deleteProjectFromView(index);
             projectController.deleteProject(projectName);
-            // projectView.renderProjects();
+            projectView.renderProjects();
+            createEventListenerForTrashIconProjects();
         });
     }
 }
-
-createEventListenersForUserProject();
-createEventListenerForAddProjectButton();
-createEventListenerForTrashIconProjects();
 
 // ------------------------------------------------------------------------------------------------------------------------
 //
@@ -132,22 +139,19 @@ createEventListenerForTrashIconProjects();
 //
 // ------------------------------------------------------------------------------------------------------------------------
 function createEventListenerForTrashIconTasks(projectName) {
-    console.log("Inside createEventListenerForTrashIconTasks()");
-
     let trashIconArray = Array.from(document.querySelectorAll(".task-trash-icon"));
     let userTaskDetailContainerArray = Array.from(document.querySelectorAll(".user-tasks-details-container"));
 
     for (let i = 0; i < userTaskDetailContainerArray.length; i++) {
         let trashIcon = trashIconArray[i];
         let userTaskDetailContainer = userTaskDetailContainerArray[i];
-        console.log(trashIcon)
         trashIcon.addEventListener("click", function(event) {
-            console.log("Clicking on trash icon");
 
             let index = userTaskDetailContainer.id;
             taskView.deleteTaskFromView(index);
             taskController.deleteTask(index);
-            // taskView.renderUserTaskDetails(projectName);
+            taskView.renderUserTaskDetails(projectName);
+            createEventListenerForTrashIconTasks(projectName);
         });
     }
 }
@@ -189,6 +193,15 @@ function closeTaskForm() {
     });
 }
 
-createEventListenerForAddTaskButton();
+createDefaultProject();
 
+projectView.render();
+taskView.render();
+
+createEventListenersForUserProject();
+createEventListenerForAddProjectButton();
+createEventListenerForTrashIconProjects();
+closeProjectForm();
+
+createEventListenerForAddTaskButton();
 closeTaskForm();

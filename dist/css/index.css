@@ -96,7 +96,6 @@ header {
 
 main {
   display: flex;
-  /*justify-content: space-between;*/
   justify-content: space-evenly;
   flex-direction: row;
   height: 100%;
@@ -108,12 +107,10 @@ main {
 }
 
 .projects-container h2, .tasks-container h2, .task-details-container h2 {
-  /*margin-bottom: 20px;*/
   margin: 15px;
 }
 
 .projects-container {
-  /*flex: 1 0 0;*/
   overflow-y: scroll;
   height: 100%;
   width: 100%;
@@ -149,7 +146,6 @@ main {
 }
 
 .tasks-container {
-  /*flex: 1 0 0;*/
   height: 100%;
   width: 100%;
   overflow-y: scroll;
@@ -165,11 +161,6 @@ main {
   width: 100%;
   z-index: 100;
   font-family: 'Lato', sans-serif;
-}
-
-.task-details-container {
-  flex: 1 0 0;
-  /*margin: 0.2em 2em;*/
 }
 
 .user-project, .user-task {
@@ -207,21 +198,24 @@ main {
 
 .intro-task-container, .intro-project-container {
   display: flex;
+  justify-content: space-between;
 }
 
 .add-task-btn, .add-project-btn {
   margin: 15px;
   border-radius: 10px;
-  background-color: #99949c;
+  background-color: #0d122bd1;
   border: none;
   padding: 7px 32px;
   text-align: center;
   display: inline-block;
   font-size: 16px;
+  font-family: 'Lato', sans-serif;
+  color: white;
 }
 
 .add-task-btn:hover, .add-project-btn:hover {
-  background-color: red;
+  background-color: #363e67d1;
 }
 
 .add-task-btn:focus, .add-project-btn:focus {
@@ -244,7 +238,7 @@ form {
   align-items: start;
   width: 352px;
   padding: 25px;
-  background-color: #131a3d;
+  background-color: #192043;
   top: 50%;
   left: 50%;
   box-sizing: border-box;
@@ -280,4 +274,14 @@ form {
 .button-container .project-submit-btn, .button-container .task-submit-btn{
   margin-top: 19px;
   margin-right: 15px;
+}
+
+input, textarea {
+  outline: none;
+}
+
+#name {
+  width: 300px;
+  height: 20px;
+  margin-top: 10px;
 }

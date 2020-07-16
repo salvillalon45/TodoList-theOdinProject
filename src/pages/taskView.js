@@ -7,6 +7,8 @@ const taskViewFactory = function()  {
     taskContainer.classList.add("tasks-container");
 
     function createTaskContainerIntro() {
+        // This function creates the intro header of the Tasks Pane
+
         const taskIntroContainer = document.createElement("div");
         const title = document.createElement("h2");
         const addTaskBtn = document.createElement("button");
@@ -25,6 +27,8 @@ const taskViewFactory = function()  {
     }
 
     function createUserTaskContainer() {
+        // This function creates the user-task-container that contains all the user-tasks-details-container
+
         const userTaskContainer = document.createElement("div");
         userTaskContainer.classList.add("user-task-container");
 
@@ -33,20 +37,9 @@ const taskViewFactory = function()  {
         content.append(main);
     }
 
-    function createUserTask(taskName) {
-        const userTask = document.createElement("p");
-        userTask.classList.add("user-task");
+    function createUserTaskDetails(name, description, dueDate, priority, userTaskContainer, index, notes) {
+        // This function creates a user-tasks-details-container. This container has all the information of the task
 
-        userTask.innerHTML = taskName;
-
-        const userTaskContainer = document.querySelector(".user-task-container");
-        userTaskContainer.append(userTask);
-        taskContainer.append(userTaskContainer);
-        main.append(taskContainer);
-        content.append(main);
-    }
-
-    function createUserTaskDetails(name, description, dueDate, priority, userTaskContainer, index) {
         const userTaskDetailsContainer = document.createElement("div");
         userTaskDetailsContainer.classList.add("user-tasks-details-container");
         userTaskDetailsContainer.setAttribute("id", index);
@@ -67,6 +60,14 @@ const taskViewFactory = function()  {
         priorityDOM.classList.add("task-priority");
         priorityDOM.innerHTML = "<strong>Priority: </strong>" + priority;
 
+        const notesDOM = document.createElement("p");
+        notesDOM.classList.add("task-notes");
+        notesDOM.innerHTML = "<strong>Notes: </strong>";
+
+        const notesContentDOM = document.createElement("p");
+        notesContentDOM.classList.add("task-notes-content");
+        notesContentDOM.innerHTML = notes;
+
         const iconsContainer = document.createElement("div");
         iconsContainer.classList.add("icons-container");
 
@@ -74,23 +75,28 @@ const taskViewFactory = function()  {
         trash.classList.add("task-trash-icon");
         trash.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
 
-        const edit = document.createElement("p");
-        edit.classList.add("edit-icon");
-        edit.innerHTML = '<i class="fa fa-pencil" aria-hidden="true"></i>\n';
+        // const edit = document.createElement("p");
+        // edit.classList.add("task-edit-icon");
+        // edit.innerHTML = '<i class="fa fa-pencil" aria-hidden="true"></i>\n';
 
         userTaskDetailsContainer.append(nameDOM);
         userTaskDetailsContainer.append(descriptionDOM);
         userTaskDetailsContainer.append(dueDateDOM);
         userTaskDetailsContainer.append(priorityDOM);
-        iconsContainer.append(edit);
+        userTaskDetailsContainer.append(notesDOM);
+        userTaskDetailsContainer.append(notesContentDOM);
+        // iconsContainer.append(edit);
         iconsContainer.append(trash);
         userTaskDetailsContainer.append(iconsContainer);
         userTaskContainer.append(userTaskDetailsContainer);
     }
 
     function createEmptyProjectNotice() {
+        // This function creates an empty notice in case the project does not have any tasks
+
         const emptyNoticeContainer = document.createElement("div");
         emptyNoticeContainer.classList.add("empty-notice-container");
+
         const emptyNotice = document.createElement("p");
         emptyNotice.innerHTML = "<strong>Project has no tasks!</strong>" + "<br>" + "<br>" +" Click on Add Task to add to it!";
         emptyNoticeContainer.append(emptyNotice);
@@ -99,6 +105,9 @@ const taskViewFactory = function()  {
     }
 
     function deleteAllEmptyProjectNotices() {
+        // This function deletes all the empty project notices. This is used renderUserTasksDetails so that we can remove all
+        // existing empty project notices
+
         const userTaskContainer = document.querySelector(".user-task-container");
         const emptyNoticeContainerArray = Array.from(document.querySelectorAll(".empty-notice-container"));
 
@@ -107,72 +116,9 @@ const taskViewFactory = function()  {
         }
     }
 
-    function renderUserTaskDetails(projectName) {
-        deleteAllTasksFromView();
-        const emptyNoticeContainer = document.querySelector(".empty-notice-container");
-
-        if (emptyNoticeContainer !== null) {
-            deleteAllEmptyProjectNotices();
-        }
-
-        const userTaskContainer = document.querySelector(".user-task-container");
-        const tasksCheck = JSON.parse(window.localStorage.getItem(projectName));
-
-        if (tasksCheck.tasks.length === 0) {
-            const emptyNotice = createEmptyProjectNotice();
-
-            userTaskContainer.append(emptyNotice);
-            taskContainer.append(userTaskContainer);
-        }
-        else {
-            const projectSelected = JSON.parse(window.localStorage.getItem(projectName));
-            const tasks = projectSelected.tasks;
-
-            for (let i = 0; i < tasks.length; i++) {
-                const name = tasks[i].taskName;
-                const description = tasks[i].description;
-                const dueDate = tasks[i].dueDate;
-                const priority = tasks[i].priority;
-
-                createUserTaskDetails(name, description, dueDate, priority, userTaskContainer, i);
-            }
-
-            taskContainer.append(userTaskContainer);
-            // main.append(taskContainer);
-            // content.append(main);
-        }
-    }
-
-
-    // function renderTasksForProjectView(projectName) {
-    //     removeTasksForProjectView();
-    //
-    //     const userTaskContainer = document.querySelector(".user-task-container");
-    //     let projectSelected = JSON.parse(window.localStorage.getItem(projectName));
-    //     let tasks = projectSelected.tasks;
-    //
-    //     for (let i = 0; i < tasks.length; i++) {
-    //         const userTask = document.createElement("p");
-    //         userTask.classList.add("user-task");
-    //         userTask.innerHTML = tasks[i].taskName;
-    //
-    //         userTaskContainer.append(userTask);
-    //     }
-    //
-    //     taskContainer.append(userTaskContainer);
-    //     main.append(taskContainer);
-    //     content.append(main);
-    // }
-
-    // function removeTasksForProjectView() {
-    //     const userProjectContainer = document.querySelector(".user-task-container");
-    //
-    //     while (userProjectContainer.firstChild) {
-    //         userProjectContainer.removeChild(userProjectContainer.firstChild);
-    //     }
-    // }
-
     function deleteAllTasksFromView() {
+        // This function deletes all task from the task view
+
         const userTaskContainer = document.querySelector(".user-task-container");
         const userTasksDetailsContainerArray = Array.from(document.querySelectorAll(".user-tasks-details-container"));
 
@@ -182,6 +128,8 @@ const taskViewFactory = function()  {
     }
 
     function deleteTaskFromView(index) {
+        // This function delete one task from the view
+
         const userTaskContainer = document.querySelector(".user-task-container");
         const userTaskDetailContainerArray = Array.from(document.querySelectorAll(".user-tasks-details-container"));
 
@@ -195,6 +143,8 @@ const taskViewFactory = function()  {
     }
 
     function createTaskForm() {
+        // This function creates the Task Form that allows users to create a new task for a project
+
         const taskFormPage = document.createElement("div");
         const taskForm = document.createElement("form");
         taskFormPage.classList.add("task-form-page");
@@ -259,6 +209,17 @@ const taskViewFactory = function()  {
         selectPriority.append(urgent);
         taskForm.append(selectPriority);
 
+        let notesLabel = document.createElement("label");
+        notesLabel.innerHTML = "Notes : ";
+        notesLabel.setAttribute("for", "notes");
+        taskForm.append(notesLabel);
+
+        let notesArea = document.createElement("textarea");
+        notesArea.setAttribute("rows", "10");
+        notesArea.setAttribute("cols", "40");
+        notesArea.setAttribute("name", "notes");
+        taskForm.append(notesArea);
+
         let buttonContainer = document.createElement("div");
         buttonContainer.classList.add("button-container");
 
@@ -282,28 +243,77 @@ const taskViewFactory = function()  {
     }
 
     function openForm() {
+        // This function makes the Task Form visible
+
         let formPage = document.querySelector(".task-form-page");
         formPage.classList.remove("hidden");
     }
 
     function closeForm() {
+        // This function hides the Task Form
+
         let formPage = document.querySelector(".task-form-page");
         formPage.classList.add("hidden");
         clearFormFields();
     }
 
     function clearFormFields() {
+        // This function clears the fields of the Task Form
+
         document.forms["TaskForm"].reset();
     }
 
+    function renderUserTaskDetails(projectName) {
+        // This function renders all the tasks for a selected project
+        // We deleteAllTasksFromView to start so that we remove the tasks from the previous project
+        // Same idea with deleteAllEmptyProjectNotices
+
+        deleteAllTasksFromView();
+
+        const emptyNoticeContainer = document.querySelector(".empty-notice-container");
+        if (emptyNoticeContainer !== null) {
+            deleteAllEmptyProjectNotices();
+        }
+
+        const userTaskContainer = document.querySelector(".user-task-container");
+        const tasksCheck = JSON.parse(window.localStorage.getItem(projectName));
+
+        if (tasksCheck.tasks.length === 0) {
+            const emptyNotice = createEmptyProjectNotice();
+
+            userTaskContainer.append(emptyNotice);
+            taskContainer.append(userTaskContainer);
+        }
+        else {
+            const projectSelected = JSON.parse(window.localStorage.getItem(projectName));
+            const tasks = projectSelected.tasks;
+
+            for (let i = 0; i < tasks.length; i++) {
+                const name = tasks[i].taskName;
+                const description = tasks[i].description;
+                const dueDate = tasks[i].dueDate;
+                const priority = tasks[i].priority;
+                const notes = tasks[i].notes;
+
+                createUserTaskDetails(name, description, dueDate, priority, userTaskContainer, i, notes);
+            }
+
+            taskContainer.append(userTaskContainer);
+        }
+    }
+
     function render() {
+        // This function is used to create DOM content that is static
+
         createTaskContainerIntro();
         createUserTaskContainer();
         createTaskForm();
     }
 
     return {
-        render, createUserTask, openForm, closeForm, renderUserTaskDetails, deleteTaskFromView
+        render, renderUserTaskDetails,
+        deleteTaskFromView,
+        openForm, closeForm,
     }
 }
 

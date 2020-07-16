@@ -7,6 +7,8 @@ const projectViewFactory = function()  {
     projectContainer.classList.add("projects-container");
 
     function createProjectContainerIntro() {
+        // This function creates the intro header of the Projects Pane
+
         const projectIntroContainer = document.createElement("div");
         const title = document.createElement("h2");
         const addProjectBtn = document.createElement("button");
@@ -25,6 +27,8 @@ const projectViewFactory = function()  {
     }
 
     function createUserProjectContainer() {
+        // This function creates the user-project-container that contains all the user-projects
+
         const userProjectContainer = document.createElement("div");
         userProjectContainer.classList.add("user-project-container");
 
@@ -34,6 +38,8 @@ const projectViewFactory = function()  {
     }
 
     function createUserProject(projectName) {
+        // This function creates a project based on the name given
+
         const userProject = document.createElement("div");
         userProject.classList.add("user-project");
 
@@ -50,21 +56,25 @@ const projectViewFactory = function()  {
         userProject.append(trash);
         userProjectContainer.append(userProject);
         projectContainer.append(userProjectContainer);
-        // main.append(projectContainer);
-        // content.append(main);
     }
 
     function insertActiveInUserProject(index) {
+        // This function inserts active on the class list. active represents a selected project
+
         let userProjectArray = Array.from(document.querySelectorAll(".user-project"));
         userProjectArray[index].classList.add("active");
     }
 
     function removeActiveInUserProject(index) {
+        // This function removes active from the class list. active represents a selected project
+
         let userProjectArray = Array.from(document.querySelectorAll(".user-project"));
         userProjectArray[index].classList.remove("active");
     }
 
     function removeActiveForAllUserProject() {
+        // This function removes active from all the user project. This helps so that there is only one active every time
+
         let userProjectArray = Array.from(document.querySelectorAll(".user-project"));
 
         for (let i = 0; i < userProjectArray.length; i++) {
@@ -72,42 +82,35 @@ const projectViewFactory = function()  {
         }
     }
 
-    function renderProjects() {
-        deleteAllProjectsFromView();
+    function deleteProjectFromView(index) {
+        // This function is used to delete one project from the project pane
 
-        let storage = window.localStorage;
-        let index = 0;
+        const userTaskContainer = document.querySelector(".user-project-container");
+        const userProjectArray = Array.from(document.querySelectorAll(".user-project"));
 
-        for (let key in storage) {
-            if (storage.hasOwnProperty(key)) {
+        for (let i = 0; i < userProjectArray.length; i++) {
+            let id = userProjectArray[i].id;
 
-                let projectName = key;
-                const userProject = document.createElement("div");
-                userProject.classList.add("user-project");
-                userProject.id = index.toString();
-
-                const userProjectText = document.createElement("p");
-                userProjectText.classList.add("user-project-text");
-                userProjectText.innerHTML = projectName;
-
-                const trash = document.createElement("p");
-                trash.classList.add("project-trash-icon");
-                trash.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
-
-                const userProjectContainer = document.querySelector(".user-project-container");
-                userProject.append(userProjectText);
-                userProject.append(trash);
-                userProjectContainer.append(userProject);
-                projectContainer.append(userProjectContainer);
-                // main.append(projectContainer);
-                // content.append(main);
-
-                index++;
+            if (id === index) {
+                userTaskContainer.removeChild(userProjectArray[id]);
             }
         }
     }
 
+    function deleteAllProjectsFromView() {
+        // This function is used to delete all projects from the project pane. This is used in renderProjects()
+
+        const userProjectContainer = document.querySelector(".user-project-container");
+        const userProjectArray = Array.from(document.querySelectorAll(".user-project"));
+
+        for (let i = 0; i < userProjectArray.length; i++) {
+            userProjectContainer.removeChild(userProjectArray[i]);
+        }
+    }
+
     function createProjectForm() {
+        // This function creates the form that allows users to create a new project
+
         const projectFormPage = document.createElement("div");
         const projectForm = document.createElement("form");
         projectFormPage.classList.add("project-form-page");
@@ -148,43 +151,66 @@ const projectViewFactory = function()  {
     }
 
     function openForm() {
+        // This function makes the Project Form visible
+
         let formPage = document.querySelector(".project-form-page");
         formPage.classList.remove("hidden");
     }
 
     function closeForm() {
+        // This function hides the Project Form
+
         let formPage = document.querySelector(".project-form-page");
         formPage.classList.add("hidden");
         clearFormFields();
     }
 
     function clearFormFields() {
+        // This function clears the fields of the Project Form
+
         document.forms["ProjectForm"].reset();
     }
 
-    function deleteProjectFromView(index) {
-        const userTaskContainer = document.querySelector(".user-project-container");
-        const userProjectArray = Array.from(document.querySelectorAll(".user-project"));
+    function renderProjects() {
+        // This function creates the projects on the project view. We use the function deleteAlProjectsFromView so that
+        // renderProjects can create them again with an update index
 
-        for (let i = 0; i < userProjectArray.length; i++) {
-            let id = userProjectArray[i].id;
+        deleteAllProjectsFromView();
 
-            if (id === index) {
-                userTaskContainer.removeChild(userProjectArray[id]);
+        let storage = window.localStorage;
+        let index = 0;
+
+        for (let key in storage) {
+            if (storage.hasOwnProperty(key)) {
+                let projectName = key;
+
+                const userProject = document.createElement("div");
+                userProject.classList.add("user-project");
+                userProject.id = index.toString();
+
+                const userProjectText = document.createElement("p");
+                userProjectText.classList.add("user-project-text");
+                userProjectText.innerHTML = projectName;
+
+                const trash = document.createElement("p");
+                trash.classList.add("project-trash-icon");
+                trash.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
+
+                const userProjectContainer = document.querySelector(".user-project-container");
+                userProject.append(userProjectText);
+                userProject.append(trash);
+                userProjectContainer.append(userProject);
+                projectContainer.append(userProjectContainer);
+
+                index++;
             }
         }
     }
 
-    function deleteAllProjectsFromView() {
-        const userProjectContainer = document.querySelector(".user-project-container");
-        const userProjectArray = Array.from(document.querySelectorAll(".user-project"));
-
-        for (let i = 0; i < userProjectArray.length; i++) {
-            userProjectContainer.removeChild(userProjectArray[i]);
-        }
-    }
 
     function render() {
+        // This function is used to create DOM content that is static
+
         createProjectContainerIntro()
         createUserProjectContainer();
         renderProjects();
@@ -192,8 +218,10 @@ const projectViewFactory = function()  {
     }
 
     return {
-        render, createUserProject, removeActiveInUserProject, insertActiveInUserProject,
-        removeActiveForAllUserProject, openForm, closeForm, deleteProjectFromView, renderProjects
+        render, renderProjects,
+        createUserProject, removeActiveForAllUserProject, deleteProjectFromView,
+        removeActiveInUserProject, insertActiveInUserProject,
+        openForm, closeForm,
     }
 }
 

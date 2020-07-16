@@ -10,28 +10,8 @@ html, body, #content {
 }
 
 #content {
-  /*position: fixed;*/
-  /*display: flex;*/
-  /*flex-direction: row;*/
-  /*top: 0;*/
-  /*left: 0;*/
-  /*width: 100%;*/
-  /*height: 100%;*/
-  /*overflow: hidden;*/
   font-family: 'Lato', sans-serif;
 }
-
-/*body, #content {*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*  font-family: 'Roboto Slab', serif;*/
-/*  background-color: #f0f0f0;*/
-/*}*/
-
-/*main {*/
-/*  flex: 1 0 auto;*/
-/*  margin-bottom: 40px;*/
-/*}*/
 
 button, i, li, .user-project, .user-task {
   cursor: pointer;
@@ -40,7 +20,6 @@ button, i, li, .user-project, .user-task {
 /* To display hide pages that are not clicked on  */
 /* --------------------------------------- */
 .hidden {
-  /*display: none;*/
   position: absolute !important;
   top: -9999px !important;
   left: -9999px !important;
@@ -131,7 +110,7 @@ main {
 .icons-container {
   display: flex;
 }
-.edit-icon {
+.task-edit-icon {
   margin-right: 10px;
 }
 
@@ -139,7 +118,7 @@ main {
   font-size: larger;
 }
 
-.task-due-date, .task-description, .task-priority {
+.task-due-date, .task-description, .task-priority, .task-notes, .task-notes-content {
   margin-top: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
@@ -149,18 +128,6 @@ main {
   height: 100%;
   width: 100%;
   overflow-y: scroll;
-}
-
-#input-task, #input-project {
-  font-size: 1rem;
-  background-color: #A3C4C3;
-  border: none;
-  outline: none;
-  box-sizing: border-box;
-  padding: 1rem;
-  width: 100%;
-  z-index: 100;
-  font-family: 'Lato', sans-serif;
 }
 
 .user-project, .user-task {
@@ -224,7 +191,7 @@ main {
 
 /* Form Page Content */
 /* --------------------------------------- */
-.task-form-page, .project-form-page {
+.task-form-page, .project-form-page, .edit-task-form-page {
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -245,14 +212,15 @@ form {
   color: white;
   border-radius: 5px;
   z-index: 2;
-  margin: 167px auto;
+  /*margin: 167px auto;*/
+  margin: 63px auto;
 }
 
-.task-form-page label {
+.task-form-page label, .edit-task-form-page label {
   padding: 5px;
 }
 
-.task-submit-btn, .project-submit-btn, .project-cancel-btn, .task-cancel-btn {
+.task-submit-btn, .project-submit-btn, .project-cancel-btn, .task-cancel-btn, .edit-task-submit-btn, .edit-task-cancel-btn {
   border-radius: 10px;
   background-color: #f8ecff;
   border: none;
@@ -263,7 +231,7 @@ form {
   font-weight: bold;
 }
 
-.project-submit-btn:hover, .task-submit-btn:hover, .task-cancel-btn:hover, .project-cancel-btn:hover {
+.project-submit-btn:hover, .task-submit-btn:hover, .task-cancel-btn:hover, .project-cancel-btn:hover, .edit-task-submit-btn:hover, .edit-task-cancel-btn:hover {
   background-color: #948b99;
 }
 
@@ -271,7 +239,7 @@ form {
   margin: 0 auto;
 }
 
-.button-container .project-submit-btn, .button-container .task-submit-btn{
+.button-container .project-submit-btn, .button-container .task-submit-btn, .button-container .edit-task-submit-btn {
   margin-top: 19px;
   margin-right: 15px;
 }

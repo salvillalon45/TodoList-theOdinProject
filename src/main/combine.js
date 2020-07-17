@@ -86,7 +86,8 @@ function createEventListenersForUserProject() {
             projectView.insertActiveInUserProject(i);
             taskView.renderUserTaskDetails(projectName);
             createEventListenerForTrashIconTasks(projectName);
-            // createEventListenerForEditIconTasks(projectName);
+            createEventListenerForEditIconTasks(projectName);
+            creatEventListenerForEditTaskCancelButton(projectName);
         });
     }
 }
@@ -171,39 +172,59 @@ function createEventListenerForTrashIconTasks(projectName) {
     }
 }
 
-// function createEventListenerForEditIconTasks(projectName) {
-//     console.log("Inside createEventListenerForEditIconTasks");
-//
-//     let editIconArray = Array.from(document.querySelectorAll(".task-edit-icon"));
-//     let userTaskDetailContainerArray = Array.from(document.querySelectorAll(".user-tasks-details-container"));
-//
-//     for (let i = 0; i < userTaskDetailContainerArray.length; i++) {
-//         let editIcon = editIconArray[i];
-//         let userTaskDetailContainer = userTaskDetailContainerArray[i];
-//         console.log(userTaskDetailContainer.innerHTML);
-//         let arr = [userTaskDetailContainer.textContent];
-//         console.log(arr);
-//         editIcon.addEventListener("click", function() {
-//             console.log("Clicked on edit icon");
-//
-//             // taskView.openEditTaskForm();
-//             taskView.openForm();
-//             // taskView.renderUserTaskDetails(projectName);
-//             createEventListenerForEditIconTasks(projectName);
-//         });
-//     }
-// }
+function createEventListenerForEditIconTasks(projectName) {
+    console.log("Inside createEventListenerForEditIconTasks");
 
-// function creatEventListenerForEditCancelButton() {
-//     console.log("Inside createEventListenerForEditCancelButton()");
-//
-//     document.querySelector(".edit-task-cancel-btn").addEventListener("click", function() {
-//         console.log("Clicked on the Edit Task Cancel Button");
-//
-//         // taskView.closeEditTaskForm();
-//         creatEventListenerForEditCancelButton();
-//     });
-// }
+    let editIconArray = Array.from(document.querySelectorAll(".task-edit-icon"));
+    let userTaskDetailContainerArray = Array.from(document.querySelectorAll(".user-tasks-details-container"));
+
+    for (let i = 0; i < userTaskDetailContainerArray.length; i++) {
+        let editIcon = editIconArray[i];
+        let userTaskDetailContainer = userTaskDetailContainerArray[i];
+
+        editIcon.addEventListener("click", function() {
+            console.log("Clicked on edit icon");
+            let index = userTaskDetailContainer.id;
+
+            taskView.openEditTaskForm();
+            taskView.populateEditTaskForm(index);
+            // taskView.renderUserTaskDetails(projectName);
+            createEventListenerForEditIconTasks(projectName);
+        });
+    }
+}
+
+function creatEventListenerForEditTaskCancelButton() {
+    console.log("Inside createEventListenerForEditCancelButton()");
+
+    document.querySelector(".edit-task-cancel-btn").addEventListener("click", function() {
+        console.log("Clicked on the Edit Task Cancel Button");
+
+        taskView.closeEditTaskForm();
+        creatEventListenerForEditTaskCancelButton();
+    });
+}
+
+function executeSubmitButtonForEditTaskForm() {
+    // This function executes when the user updates a task for a project
+    
+    document.querySelector(".edit-task-submit-btn").addEventListener("click", function(event) {
+        event.stopImmediatePropagation();
+
+        let newTitle = document.forms["EditTaskForm"]["title"];
+        let newDescription = document.forms["TaskForm"]["description"];
+        let newDueDate = document.forms["TaskForm"]["date"];
+        let newPriority = document.forms["TaskForm"]["priority"];
+        let newNotes = document.forms["TaskForm"]["notes"];
+
+        taskController.createTask(newTitle.value, newDescription.value, newDueDate.value, newPriority.value, newNotes.value);
+        const projectName = document.querySelector(".active").textContent;
+        taskView.renderUserTaskDetails(projectName);
+        createEventListenerForEditIconTasks(projectName);
+        createEventListenerForTrashIconTasks(projectName);
+        taskView.closeForm();
+    });
+}
 
 function createEventListenerForAddTaskButton() {
     // This function creates an event listener for the add a new task button
@@ -238,7 +259,7 @@ function executeSubmitButtonForTaskForm() {
             taskController.createTask(newTitle.value, newDescription.value, newDueDate.value, newPriority.value, newNotes.value);
             const projectName = document.querySelector(".active").textContent;
             taskView.renderUserTaskDetails(projectName);
-            // createEventListenerForEditIconTasks(projectName);
+            createEventListenerForEditIconTasks(projectName);
             createEventListenerForTrashIconTasks(projectName);
             taskView.closeForm();
         });
@@ -259,5 +280,5 @@ export {
     projectView, taskView,
     createEventListenersForUserProject, createEventListenerForAddProjectButton,
     createEventListenerForTrashIconProjects, closeProjectForm,
-    createEventListenerForAddTaskButton, closeTaskForm
+    createEventListenerForAddTaskButton, closeTaskForm, creatEventListenerForEditTaskCancelButton
 }

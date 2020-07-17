@@ -75,9 +75,9 @@ const taskViewFactory = function()  {
         trash.classList.add("task-trash-icon");
         trash.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
 
-        // const edit = document.createElement("p");
-        // edit.classList.add("task-edit-icon");
-        // edit.innerHTML = '<i class="fa fa-pencil" aria-hidden="true"></i>\n';
+        const edit = document.createElement("p");
+        edit.classList.add("task-edit-icon");
+        edit.innerHTML = '<i class="fa fa-pencil" aria-hidden="true"></i>\n';
 
         userTaskDetailsContainer.append(nameDOM);
         userTaskDetailsContainer.append(descriptionDOM);
@@ -85,7 +85,7 @@ const taskViewFactory = function()  {
         userTaskDetailsContainer.append(priorityDOM);
         userTaskDetailsContainer.append(notesDOM);
         userTaskDetailsContainer.append(notesContentDOM);
-        // iconsContainer.append(edit);
+        iconsContainer.append(edit);
         iconsContainer.append(trash);
         userTaskDetailsContainer.append(iconsContainer);
         userTaskContainer.append(userTaskDetailsContainer);
@@ -257,6 +257,148 @@ const taskViewFactory = function()  {
         clearFormFields();
     }
 
+    function createEditTaskForm() {
+        // This function creates the Edit Task Form that allows users to create a new task for a project
+
+        const editTaskFormPage = document.createElement("div");
+        const editTaskForm = document.createElement("form");
+        editTaskFormPage.classList.add("edit-task-form-page");
+        editTaskFormPage.classList.add("hidden");
+        editTaskForm.name = "EditTaskForm";
+
+        let titleLabel = document.createElement('label');
+        titleLabel.setAttribute("for", "edit-title");
+        titleLabel.innerHTML = "Task Title : ";
+        editTaskForm.append(titleLabel);
+
+        let titleInput = document.createElement("input");
+        titleInput.setAttribute("type", "text");
+        titleInput.setAttribute("name", "edit-title");
+        titleInput.setAttribute("id", "edit-title");
+        editTaskForm.append(titleInput);
+
+        let descriptionLabel = document.createElement("label");
+        descriptionLabel.innerHTML = "Description : ";
+        descriptionLabel.setAttribute("for", "edit-description");
+        editTaskForm.append(descriptionLabel);
+
+        let descriptionArea = document.createElement("textarea");
+        descriptionArea.setAttribute("rows", "10");
+        descriptionArea.setAttribute("cols", "40");
+        descriptionArea.setAttribute("name", "edit-description");
+        descriptionArea.setAttribute("id", "edit-description");
+        editTaskForm.append(descriptionArea);
+
+        let dateLabel = document.createElement("label");
+        dateLabel.innerHTML = "Select Date : ";
+        dateLabel.setAttribute("for", "edit-date");
+        editTaskForm.append(dateLabel);
+
+        let dateInput = document.createElement("input");
+        dateInput.setAttribute("type", "date");
+        dateInput.setAttribute("name", "edit-date");
+        dateInput.setAttribute("id", "edit-date");
+        dateInput.setAttribute("value", "yyyy-dd-mm");
+        editTaskForm.append(dateInput);
+
+        let priorityLabel = document.createElement("label");
+        priorityLabel.innerHTML = "Select Priority : ";
+        priorityLabel.setAttribute("for", "edit-priority");
+        editTaskForm.append(priorityLabel);
+
+        let selectPriority = document.createElement("select");
+        let low = document.createElement("option");
+        let normal = document.createElement("option");
+        let high = document.createElement("option");
+        let urgent = document.createElement("option");
+        selectPriority.setAttribute("name", "edit-priority");
+        selectPriority.setAttribute("id", "edit-priority");
+        selectPriority.classList.add("edit-select-priority");
+
+        low.innerHTML = "low";
+        normal.innerHTML = "normal";
+        high.innerHTML = "high";
+        urgent.innerHTML = "urgent";
+
+        selectPriority.append(low);
+        selectPriority.append(normal);
+        selectPriority.append(high);
+        selectPriority.append(urgent);
+        editTaskForm.append(selectPriority);
+
+        let notesLabel = document.createElement("label");
+        notesLabel.innerHTML = "Notes : ";
+        notesLabel.setAttribute("for", "edit-notes");
+        editTaskForm.append(notesLabel);
+
+        let notesArea = document.createElement("textarea");
+        notesArea.setAttribute("rows", "10");
+        notesArea.setAttribute("cols", "40");
+        notesArea.setAttribute("name", "edit-notes");
+        notesArea.setAttribute("id", "edit-notes");
+        editTaskForm.append(notesArea);
+
+        let buttonContainer = document.createElement("div");
+        buttonContainer.classList.add("button-container");
+
+        let submitBtn = document.createElement("button");
+        submitBtn.setAttribute("type", "button");
+        submitBtn.classList.add("edit-task-submit-btn");
+        submitBtn.innerHTML = "Submit";
+
+        let cancelBtn = document.createElement("button");
+        cancelBtn.setAttribute("type", "button");
+        cancelBtn.classList.add("edit-task-cancel-btn");
+        cancelBtn.innerHTML = "Cancel";
+
+        buttonContainer.append(submitBtn);
+        buttonContainer.append(cancelBtn);
+        editTaskForm.append(buttonContainer);
+
+        editTaskFormPage.append(editTaskForm);
+        main.append(editTaskFormPage);
+        content.append(main);
+    }
+
+    function openEditTaskForm() {
+        // This function makes the Edit Task Form visible
+
+        let formPage = document.querySelector(".edit-task-form-page");
+        formPage.classList.remove("hidden");
+    }
+
+    function closeEditTaskForm() {
+        // This function makes the Edit Task Form visible
+
+        let formPage = document.querySelector(".edit-task-form-page");
+        formPage.classList.add("hidden");
+    }
+
+    function populateEditTaskForm(index) {
+        console.log("Inside populateEditTaskForm()");
+
+        const userTaskDetailContainerArray = Array.from(document.querySelectorAll(".user-tasks-details-container"));
+        const userTaskDetailContainer = userTaskDetailContainerArray[index];
+        const taskName = userTaskDetailContainer.children[0].textContent;
+        const taskDescription = userTaskDetailContainer.children[1].textContent.slice(18);
+        const taskDueDate = userTaskDetailContainer.children[2].textContent.slice(10);
+        const taskPriority = userTaskDetailContainer.children[3].textContent.slice(10);
+        const taskNotes = userTaskDetailContainer.children[5].textContent;
+
+        let taskNameField = document.querySelector("#edit-title");
+        let taskDescriptionField = document.querySelector("#edit-description");
+        let taskDueDateField = document.querySelector("#edit-date");
+        let taskPriorityField = document.querySelector("#edit-priority");
+        let taskNotesField = document.querySelector("#edit-notes");
+
+        taskNameField.value = taskName;
+        taskDescriptionField.value = taskDescription;
+        taskDueDateField.value = taskDueDate;
+        taskPriorityField.value = taskPriority;
+        taskNotesField.value = taskNotes;
+
+    }
+
     function clearFormFields() {
         // This function clears the fields of the Task Form
 
@@ -308,12 +450,14 @@ const taskViewFactory = function()  {
         createTaskContainerIntro();
         createUserTaskContainer();
         createTaskForm();
+        createEditTaskForm();
     }
 
     return {
         render, renderUserTaskDetails,
         deleteTaskFromView,
         openForm, closeForm,
+        openEditTaskForm, closeEditTaskForm, populateEditTaskForm
     }
 }
 

@@ -6,7 +6,6 @@ import { createHeader,
     createEventListenerForAddTaskButton, closeTaskForm } from "./main/combine";
 
 // This file takes everything from combine.js and runs the functions here
-
 createHeader();
 createDefaultProject();
 

@@ -22,6 +22,22 @@ const taskControllerFactory = function()  {
         storeInStorage(project.name, project);
     }
 
+    function updateTask(newTaskName, newDescription, newDueDate, newPriority, newNotes, index) {
+        // This function creates updates a selected task
+
+        let project = getProject();
+        let projectTasks = project.tasks[index];
+
+        projectTasks.taskName = newTaskName;
+        projectTasks.description = newDescription;
+        projectTasks.dueDate = newDueDate;
+        projectTasks.priority = newPriority;
+        projectTasks.notes = newNotes;
+        project.tasks[index] = projectTasks;
+
+        storeInStorage(project.name, project);
+    }
+
     function storeInStorage(projectName, projectObj) {
         // This function stores in Local Storage the project Obj
 
@@ -38,7 +54,7 @@ const taskControllerFactory = function()  {
     }
 
     return {
-        createTask, deleteTask
+        createTask, deleteTask, updateTask
     };
 }
 

@@ -31,7 +31,7 @@ function createHeader() {
     const navLinks = document.createElement("nav");
     const ul = document.createElement("ul");
     ul.classList.add("menu");
-    ul.innerHTML = '<li class="nav-link"><a href="https://salvillalon45.github.io/">About Developer</a></li>' + '<li class="nav-link"><a href="https://www.linkedin.com/in/salvadorvillalon/">LinkedIn</a></li>';
+    ul.innerHTML = '<li class="nav-link"><a href="https://salvillalon45.github.io/">About Salvador Villalon</a></li>' + '<li class="nav-link"><a href="https://www.linkedin.com/in/salvadorvillalon/">LinkedIn</a></li>';
     navLinks.append(ul);
 
     navContainer.append(navLinks);
@@ -173,7 +173,7 @@ function createEventListenerForTrashIconTasks(projectName) {
 }
 
 function createEventListenerForEditIconTasks(projectName) {
-    console.log("Inside createEventListenerForEditIconTasks");
+    // This function creates an event listener for the edit icon in the user tasks details container
 
     let editIconArray = Array.from(document.querySelectorAll(".task-edit-icon"));
     let userTaskDetailContainerArray = Array.from(document.querySelectorAll(".user-tasks-details-container"));
@@ -190,12 +190,13 @@ function createEventListenerForEditIconTasks(projectName) {
             taskView.populateEditTaskForm(index);
             // taskView.renderUserTaskDetails(projectName);
             createEventListenerForEditIconTasks(projectName);
+            executeSubmitButtonForEditTaskForm(index);
         });
     }
 }
 
 function creatEventListenerForEditTaskCancelButton() {
-    console.log("Inside createEventListenerForEditCancelButton()");
+    // This function creates an event listener for the cancel button in the edit task form
 
     document.querySelector(".edit-task-cancel-btn").addEventListener("click", function() {
         console.log("Clicked on the Edit Task Cancel Button");
@@ -205,24 +206,24 @@ function creatEventListenerForEditTaskCancelButton() {
     });
 }
 
-function executeSubmitButtonForEditTaskForm() {
+function executeSubmitButtonForEditTaskForm(index) {
     // This function executes when the user updates a task for a project
     
     document.querySelector(".edit-task-submit-btn").addEventListener("click", function(event) {
         event.stopImmediatePropagation();
 
-        let newTitle = document.forms["EditTaskForm"]["title"];
-        let newDescription = document.forms["TaskForm"]["description"];
-        let newDueDate = document.forms["TaskForm"]["date"];
-        let newPriority = document.forms["TaskForm"]["priority"];
-        let newNotes = document.forms["TaskForm"]["notes"];
+        let newTitle = document.forms["EditTaskForm"]["edit-title"];
+        let newDescription = document.forms["EditTaskForm"]["edit-description"];
+        let newDueDate = document.forms["EditTaskForm"]["edit-date"];
+        let newPriority = document.forms["EditTaskForm"]["edit-priority"];
+        let newNotes = document.forms["EditTaskForm"]["edit-notes"];
 
-        taskController.createTask(newTitle.value, newDescription.value, newDueDate.value, newPriority.value, newNotes.value);
+        taskController.updateTask(newTitle.value, newDescription.value, newDueDate.value, newPriority.value, newNotes.value, index);
         const projectName = document.querySelector(".active").textContent;
         taskView.renderUserTaskDetails(projectName);
         createEventListenerForEditIconTasks(projectName);
         createEventListenerForTrashIconTasks(projectName);
-        taskView.closeForm();
+        taskView.closeEditTaskForm();
     });
 }
 
